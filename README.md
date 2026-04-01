@@ -11,6 +11,13 @@
 
 기본 출발지는 `서울(SEL)` 과 `청주(CJJ)` 입니다.
 
+주의:
+
+- Amadeus Self-Service Flight Offers는 공식 문서 기준으로 저가항공사(LCC)를 반환하지 않습니다.
+- 기본 테스트 환경(`test.api.amadeus.com`)은 제한적이고 cached 된 데이터입니다.
+- 더 실제에 가까운 결과를 보려면 production 환경과 `travel-class=ECONOMY` 기준으로 확인하는 것이 좋습니다.
+- 검색 결과 가격은 기본적으로 `Flight Offers Price`로 한 번 더 확인해서 확정가에 가깝게 정리합니다.
+
 ## 왜 Flight Offers Search를 썼나
 
 Amadeus 공식 문서에 따르면 `Flight Cheapest Date Search` 는 캐시 기반이라 모든 노선을 보장하지 않습니다. 반면 `Flight Offers Search` 는 실시간 가격/재고 조회용이라 현재 요구사항에 더 잘 맞습니다.
@@ -90,11 +97,8 @@ python3 airfare_search.py \
 
 Discord 메시지에는 각 결과별로 아래 필드가 들어갑니다.
 
-- 일정
-- 출발
-- 도착
-- 가격
-- 항공사
+- `서울 -> 다카마쓰` 같은 경로 제목
+- 경로 아래에 `일정 / 가격 / 항공사 / 확정가 여부` 줄 목록
 
 샘플 출력:
 
@@ -109,7 +113,10 @@ Discord 메시지에는 각 결과별로 아래 필드가 들어갑니다.
 - `--trip-days`: 여행 일수. `7` 이면 `7/1~7/7` 패턴
 - `--month`: `YYYY-MM` 또는 `MM`
 - `--origins`: 기본값은 `서울 청주`
+- `--travel-class`: 기본값 `ECONOMY`
 - `--max-results`: Amadeus 한 번 호출 시 받을 오퍼 수
+- `--confirm-top-offers`: 최종가 확인할 상위 후보 수. 기본값 `6`
+- `--skip-price-confirmation`: Flight Offers Price 재확인 생략
 - `--limit`: 화면에 보여줄 상위 결과 수
 - `--max-searches`: 실제 실행할 검색 조합 수 제한. 테스트할 때 `10` 추천
 - `--output`: 전체 결과를 JSON으로 저장

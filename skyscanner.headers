@@ -1,0 +1,22 @@
+HTTP/2 200 
+content-type: application/json
+access-control-allow-origin: https://www.skyscanner.co.kr
+content-encoding: gzip
+date: Tue, 31 Mar 2026 11:28:26 GMT
+vary: Accept-Encoding,Accept-Encoding
+x-envoy-upstream-service-time: 1746
+server: istio-envoy
+x-gateway-servedby: gw54.skyscanner.net
+x-service-servedby: radar
+x-cache: Miss from cloudfront
+via: 1.1 9c1fd6d0c263b65c32cb50e41da877e2.cloudfront.net (CloudFront)
+x-amz-cf-pop: ICN57-P3
+alt-svc: h3=":443"; ma=86400
+x-amz-cf-id: LCc5OVS75rteM00i3bq2Gag7nrxv11MQgCzWc8hjJloOZMuAXxrWqQ==
+x-xss-protection: 1; mode=block
+x-frame-options: SAMEORIGIN
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+accept-ch: Sec-CH-UA-Model
+

@@ -1,0 +1,2788 @@
+{
+  "context": {
+    "status": "incomplete",
+    "sessionId": "KLUv_SD57QUAkk4sIaCpDXOVq6YCwBvhu3vH5yU5RJwpcnPlgru0Z4-k7tGWuIeCQvhv3M-fn3w6Z3tNq1eT7FeYGGPPq1gsGE-TMDF26yi3RfYKeb1CCFd7l6ly5c7wOehBrAEsDykMVNvcpuTkm9787-YquD651RJ0PkAO0kZZFEoCDOJoRB6Ma_WYPbh6lzLv1qXeqlxfhfH9fVqOQGF-8j6PraW_tnyuz7z6LFeZ5VTO0kEGhGiSJYECAgDwhgIXOFNS"
+  },
+  "itineraries": {
+    "destinationImageUrl": "https://content.skyscnr.com/m/3719e8f4a5daf43d/original/Flights-Placeholder.jpg",
+    "filterStats": {
+      "duration": {
+        "min": 115,
+        "max": 120,
+        "multiCityMin": 220,
+        "multiCityMax": 225
+      },
+      "total": 10,
+      "hasCityOpenJaw": true,
+      "multipleCarriers": { "minPrice": "", "rawMinPrice": null },
+      "airports": [
+        {
+          "city": "서울",
+          "airports": [
+            { "id": "GMP", "entityId": "128668604", "name": "서울 김포" },
+            { "id": "ICN", "entityId": "95673659", "name": "인천 국제" }
+          ]
+        },
+        {
+          "city": "오사카",
+          "airports": [
+            {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널"
+            }
+          ]
+        }
+      ],
+      "carriers": [
+        {
+          "id": -31158,
+          "alternateId": "S~",
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/S%7E.png",
+          "name": "에어서울",
+          "minPrice": "₩202,000",
+          "allianceId": 0,
+          "rawMinPrice": 202000.0
+        },
+        {
+          "id": -31974,
+          "alternateId": "03",
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+          "name": "피치항공",
+          "minPrice": "₩193,191",
+          "allianceId": 0,
+          "rawMinPrice": 193191.0
+        }
+      ],
+      "stopPrices": {
+        "direct": {
+          "isPresent": true,
+          "formattedPrice": "₩193,191",
+          "rawPrice": 193191.0
+        },
+        "one": { "isPresent": false },
+        "twoOrMore": { "isPresent": false }
+      },
+      "alliances": []
+    },
+    "creatives": [],
+    "agents": [
+      {
+        "id": "agod",
+        "name": "아고다",
+        "isCarrier": false,
+        "updateStatus": "pending",
+        "optimisedForMobile": false,
+        "rating": 1.14,
+        "feedbackCount": 921
+      },
+      {
+        "id": "anai",
+        "name": "ANA (전일본공수)",
+        "isCarrier": true,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 4.29,
+        "feedbackCount": 47
+      },
+      {
+        "id": "asia",
+        "name": "아시아나항공",
+        "isCarrier": true,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 4.72,
+        "feedbackCount": 960
+      },
+      {
+        "id": "bcdk",
+        "name": "Booking.com",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 3.79,
+        "feedbackCount": 2679
+      },
+      {
+        "id": "chin",
+        "name": "중국국제항공",
+        "isCarrier": true,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 1.12,
+        "feedbackCount": 229
+      },
+      {
+        "id": "crk_",
+        "name": "홍콩 항공",
+        "isCarrier": true,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 4.47,
+        "feedbackCount": 32
+      },
+      {
+        "id": "ctkr",
+        "name": "Trip.com (트립닷컴)",
+        "isCarrier": false,
+        "updateStatus": "pending",
+        "optimisedForMobile": true,
+        "rating": 4.82,
+        "feedbackCount": 10337
+      },
+      {
+        "id": "dhop",
+        "name": "WAYA",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 1.5,
+        "feedbackCount": 38
+      },
+      {
+        "id": "easr",
+        "name": "이스타항공",
+        "isCarrier": true,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 2.08,
+        "feedbackCount": 625
+      },
+      {
+        "id": "etih",
+        "name": "에티하드항공",
+        "isCarrier": true,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 4.77,
+        "feedbackCount": 64
+      },
+      {
+        "id": "gtkr",
+        "name": "Gotogate",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 2.5,
+        "feedbackCount": 925
+      },
+      {
+        "id": "hana",
+        "name": "하나투어",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 4.26,
+        "feedbackCount": 4645
+      },
+      {
+        "id": "itpr",
+        "name": "NOL인터파크투어",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 4.85,
+        "feedbackCount": 10170
+      },
+      {
+        "id": "jal_",
+        "name": "일본항공",
+        "isCarrier": true,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 0.0,
+        "feedbackCount": 0
+      },
+      {
+        "id": "jina",
+        "name": "진에어",
+        "isCarrier": true,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 2.04,
+        "feedbackCount": 1682
+      },
+      {
+        "id": "jja_",
+        "name": "제주항공",
+        "isCarrier": true,
+        "updateStatus": "pending",
+        "optimisedForMobile": true,
+        "rating": 4.59,
+        "feedbackCount": 1517
+      },
+      {
+        "id": "kore",
+        "name": "대한항공",
+        "isCarrier": true,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 4.9,
+        "feedbackCount": 909
+      },
+      {
+        "id": "mdtr",
+        "name": "모두투어",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 2.42,
+        "feedbackCount": 567
+      },
+      {
+        "id": "mrlt",
+        "name": "마이리얼트립",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 4.62,
+        "feedbackCount": 10307
+      },
+      {
+        "id": "mtkr",
+        "name": "Mytrip",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 3.59,
+        "feedbackCount": 5689
+      },
+      {
+        "id": "oltr",
+        "name": "온라인투어",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 1.17,
+        "feedbackCount": 319
+      },
+      {
+        "id": "quna",
+        "name": "TeaFlight",
+        "isCarrier": false,
+        "updateStatus": "pending",
+        "optimisedForMobile": true,
+        "rating": 3.39,
+        "feedbackCount": 4668
+      },
+      {
+        "id": "skap",
+        "name": "Kiwi.com",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 2.34,
+        "feedbackCount": 1181
+      },
+      {
+        "id": "skti",
+        "name": "skyticket",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": false,
+        "rating": 3.77,
+        "feedbackCount": 732
+      },
+      {
+        "id": "trpi",
+        "name": "트리플",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 3.91,
+        "feedbackCount": 1872
+      },
+      {
+        "id": "turk",
+        "name": "터키항공",
+        "isCarrier": true,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 4.69,
+        "feedbackCount": 101
+      },
+      {
+        "id": "tvis",
+        "name": "투어비스",
+        "isCarrier": false,
+        "updateStatus": "pending",
+        "optimisedForMobile": true,
+        "rating": 2.1,
+        "feedbackCount": 3456
+      },
+      {
+        "id": "tway",
+        "name": "티웨이항공",
+        "isCarrier": true,
+        "updateStatus": "pending",
+        "optimisedForMobile": true,
+        "rating": 2.36,
+        "feedbackCount": 983
+      },
+      {
+        "id": "vgtr",
+        "name": "참좋은여행",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 4.09,
+        "feedbackCount": 1293
+      },
+      {
+        "id": "wbtr",
+        "name": "웹투어",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 2.18,
+        "feedbackCount": 524
+      },
+      {
+        "id": "wpm_",
+        "name": "와이페이모어",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 3.72,
+        "feedbackCount": 2681
+      },
+      {
+        "id": "ybtr",
+        "name": "노랑풍선",
+        "isCarrier": false,
+        "updateStatus": "current",
+        "optimisedForMobile": true,
+        "rating": 2.88,
+        "feedbackCount": 1671
+      }
+    ],
+    "alliances": [],
+    "context": {
+      "status": "incomplete",
+      "sessionId": "e8a1fe88-4e8b-488b-a7e9-bae95da748fb",
+      "totalResults": 10
+    },
+    "results": [
+      {
+        "id": "11876-2607011125--31974-0-13068-2607011310|13068-2607071605--31974-0-11876-2607071800",
+        "price": {
+          "raw": 193191.0,
+          "formatted": "₩193,191",
+          "pricingOptionId": "-oIRu1CQAQwQ"
+        },
+        "legs": [
+          {
+            "id": "11876-2607011125--31974-0-13068-2607011310",
+            "origin": {
+              "id": "GMP",
+              "entityId": "128668604",
+              "name": "서울 김포",
+              "displayCode": "GMP",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 105,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-01T11:25:00",
+            "arrival": "2026-07-01T13:10:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "11876-13068-2607011125-2607011310--31974",
+                "origin": {
+                  "flightPlaceId": "GMP",
+                  "displayCode": "GMP",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "서울 김포",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "destination": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "departure": "2026-07-01T11:25:00",
+                "arrival": "2026-07-01T13:10:00",
+                "durationInMinutes": 105,
+                "flightNumber": "736",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          },
+          {
+            "id": "13068-2607071605--31974-0-11876-2607071800",
+            "origin": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "GMP",
+              "entityId": "128668604",
+              "name": "서울 김포",
+              "displayCode": "GMP",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 115,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-07T16:05:00",
+            "arrival": "2026-07-07T18:00:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "13068-11876-2607071605-2607071800--31974",
+                "origin": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "destination": {
+                  "flightPlaceId": "GMP",
+                  "displayCode": "GMP",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "서울 김포",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "departure": "2026-07-07T16:05:00",
+                "arrival": "2026-07-07T18:00:00",
+                "durationInMinutes": 115,
+                "flightNumber": "743",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          }
+        ],
+        "isSelfTransfer": false,
+        "isProtectedSelfTransfer": false,
+        "farePolicy": {
+          "isChangeAllowed": false,
+          "isPartiallyChangeable": false,
+          "isCancellationAllowed": false,
+          "isPartiallyRefundable": false
+        },
+        "fareAttributes": {},
+        "tags": ["cheapest", "shortest"],
+        "isMashUp": false,
+        "hasFlexibleOptions": false,
+        "score": 0.999,
+        "pricingOptions": [
+          {
+            "agentIds": ["skti"],
+            "price": { "updateStatus": "current", "amount": 193191.0 },
+            "items": [
+              {
+                "price": { "updateStatus": "current", "amount": 193191.0 },
+                "segmentIds": [
+                  "11876-13068-2607011125-2607011310--31974",
+                  "13068-11876-2607071605-2607071800--31974"
+                ],
+                "bookingProposition": "PBOOK",
+                "agentId": "skti",
+                "url": "/transport_deeplink/4.0/KR/ko-KR/KRW/skti/2/11876.13068.2026-07-01,13068.11876.2026-07-07/air/trava/flights?itinerary=flight|-31974|736|11876|2026-07-01T11:25|13068|2026-07-01T13:10|105|-|-|-,flight|-31974|743|13068|2026-07-07T16:05|11876|2026-07-07T18:00|115|-|-|-&carriers=-31974&operators=-31974,-31974&passengers=1&channel=website&cabin_class=economy&fps_session_id=e8a1fe88-4e8b-488b-a7e9-bae95da748fb&ticket_price=193191.00&is_npt=false&is_multipart=false&client_id=skyscanner_website&request_id=abdc18de-807f-4b3b-ad00-7585466d822d&q_ids=H4sIAAAAAAAA_-NS4GIpzi7JFGLmuGkmxczRk6bQsHHiJTaNhuaNl9iMmBQYAb3eXU8iAAAA|5681773975603810505|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2026-03-31T10:33:23&pqid=false&fare_type=base_fare"
+              }
+            ],
+            "pricingOptionId": "-oIRu1CQAQwQ",
+            "fareAttributes": {}
+          }
+        ]
+      },
+      {
+        "id": "12409-2607011020--31974-0-13068-2607011210|13068-2607071605--31974-0-11876-2607071800",
+        "price": {
+          "raw": 193191.0,
+          "formatted": "₩193,191",
+          "pricingOptionId": "NQKs_sieEMHt"
+        },
+        "legs": [
+          {
+            "id": "12409-2607011020--31974-0-13068-2607011210",
+            "origin": {
+              "id": "ICN",
+              "entityId": "95673659",
+              "name": "인천 국제",
+              "displayCode": "ICN",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": true
+            },
+            "destination": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 110,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-01T10:20:00",
+            "arrival": "2026-07-01T12:10:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "12409-13068-2607011020-2607011210--31974",
+                "origin": {
+                  "flightPlaceId": "ICN",
+                  "displayCode": "ICN",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "인천 국제",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "destination": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "departure": "2026-07-01T10:20:00",
+                "arrival": "2026-07-01T12:10:00",
+                "durationInMinutes": 110,
+                "flightNumber": "714",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          },
+          {
+            "id": "13068-2607071605--31974-0-11876-2607071800",
+            "origin": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "GMP",
+              "entityId": "128668604",
+              "name": "서울 김포",
+              "displayCode": "GMP",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": true
+            },
+            "durationInMinutes": 115,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-07T16:05:00",
+            "arrival": "2026-07-07T18:00:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "13068-11876-2607071605-2607071800--31974",
+                "origin": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "destination": {
+                  "flightPlaceId": "GMP",
+                  "displayCode": "GMP",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "서울 김포",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "departure": "2026-07-07T16:05:00",
+                "arrival": "2026-07-07T18:00:00",
+                "durationInMinutes": 115,
+                "flightNumber": "743",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          }
+        ],
+        "isSelfTransfer": false,
+        "isProtectedSelfTransfer": false,
+        "farePolicy": {
+          "isChangeAllowed": false,
+          "isPartiallyChangeable": false,
+          "isCancellationAllowed": false,
+          "isPartiallyRefundable": false
+        },
+        "eco": { "ecoContenderDelta": 9.810138 },
+        "fareAttributes": {},
+        "tags": ["second_cheapest"],
+        "isMashUp": false,
+        "hasFlexibleOptions": false,
+        "score": 0.919359,
+        "pricingOptions": [
+          {
+            "agentIds": ["skti"],
+            "price": { "updateStatus": "current", "amount": 193191.0 },
+            "items": [
+              {
+                "price": { "updateStatus": "current", "amount": 193191.0 },
+                "segmentIds": [
+                  "12409-13068-2607011020-2607011210--31974",
+                  "13068-11876-2607071605-2607071800--31974"
+                ],
+                "bookingProposition": "PBOOK",
+                "agentId": "skti",
+                "url": "/transport_deeplink/4.0/KR/ko-KR/KRW/skti/2/7001.13068.2026-07-01,13068.7001.2026-07-07/air/trava/flights?itinerary=flight|-31974|714|12409|2026-07-01T10:20|13068|2026-07-01T12:10|110|-|-|-,flight|-31974|743|13068|2026-07-07T16:05|11876|2026-07-07T18:00|115|-|-|-&carriers=-31974&operators=-31974,-31974&passengers=1&channel=website&cabin_class=economy&fps_session_id=e8a1fe88-4e8b-488b-a7e9-bae95da748fb&ticket_price=193191.00&is_npt=false&is_multipart=false&client_id=skyscanner_website&request_id=abdc18de-807f-4b3b-ad00-7585466d822d&q_ids=H4sIAAAAAAAA_-NS4GIpzi7JFGLmuGkmxczRk6bQsHHiJTaNhuaNl9iMmBQYAb3eXU8iAAAA|2658080728855288924|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2026-03-31T10:33:23&pqid=false&fare_type=base_fare"
+              }
+            ],
+            "pricingOptionId": "NQKs_sieEMHt",
+            "fareAttributes": {}
+          }
+        ]
+      },
+      {
+        "id": "12409-2607011520--31158-0-13068-2607011700|13068-2607071005--31158-0-12409-2607071205",
+        "price": {
+          "raw": 202000.0,
+          "formatted": "₩202,000",
+          "pricingOptionId": "h103rRUNRGap"
+        },
+        "legs": [
+          {
+            "id": "12409-2607011520--31158-0-13068-2607011700",
+            "origin": {
+              "id": "ICN",
+              "entityId": "95673659",
+              "name": "인천 국제",
+              "displayCode": "ICN",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 100,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-01T15:20:00",
+            "arrival": "2026-07-01T17:00:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31158,
+                  "alternateId": "S~",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/S%7E.png",
+                  "name": "에어서울"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "12409-13068-2607011520-2607011700--31158",
+                "origin": {
+                  "flightPlaceId": "ICN",
+                  "displayCode": "ICN",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "인천 국제",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "destination": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "departure": "2026-07-01T15:20:00",
+                "arrival": "2026-07-01T17:00:00",
+                "durationInMinutes": 100,
+                "flightNumber": "715",
+                "marketingCarrier": {
+                  "id": -31158,
+                  "name": "에어서울",
+                  "alternateId": "S~",
+                  "allianceId": 0,
+                  "displayCode": "RS"
+                },
+                "operatingCarrier": {
+                  "id": -31158,
+                  "name": "에어서울",
+                  "alternateId": "S~",
+                  "allianceId": 0,
+                  "displayCode": "RS"
+                }
+              }
+            ]
+          },
+          {
+            "id": "13068-2607071005--31158-0-12409-2607071205",
+            "origin": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "ICN",
+              "entityId": "95673659",
+              "name": "인천 국제",
+              "displayCode": "ICN",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 120,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-07T10:05:00",
+            "arrival": "2026-07-07T12:05:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31158,
+                  "alternateId": "S~",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/S%7E.png",
+                  "name": "에어서울"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "13068-12409-2607071005-2607071205--31158",
+                "origin": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "destination": {
+                  "flightPlaceId": "ICN",
+                  "displayCode": "ICN",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "인천 국제",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "departure": "2026-07-07T10:05:00",
+                "arrival": "2026-07-07T12:05:00",
+                "durationInMinutes": 120,
+                "flightNumber": "712",
+                "marketingCarrier": {
+                  "id": -31158,
+                  "name": "에어서울",
+                  "alternateId": "S~",
+                  "allianceId": 0,
+                  "displayCode": "RS"
+                },
+                "operatingCarrier": {
+                  "id": -31158,
+                  "name": "에어서울",
+                  "alternateId": "S~",
+                  "allianceId": 0,
+                  "displayCode": "RS"
+                }
+              }
+            ]
+          }
+        ],
+        "isSelfTransfer": false,
+        "isProtectedSelfTransfer": false,
+        "farePolicy": {
+          "isChangeAllowed": false,
+          "isPartiallyChangeable": false,
+          "isCancellationAllowed": false,
+          "isPartiallyRefundable": false
+        },
+        "fareAttributes": {},
+        "tags": ["third_cheapest", "second_shortest"],
+        "isMashUp": false,
+        "hasFlexibleOptions": false,
+        "score": 0.915957,
+        "pricingOptions": [
+          {
+            "agentIds": ["tvis"],
+            "price": { "updateStatus": "pending", "amount": 202000.0 },
+            "items": [
+              {
+                "price": { "updateStatus": "pending", "amount": 202000.0 },
+                "segmentIds": [
+                  "12409-13068-2607011520-2607011700--31158",
+                  "13068-12409-2607071005-2607071205--31158"
+                ],
+                "bookingProposition": "PBOOK",
+                "agentId": "tvis",
+                "url": "/transport_deeplink/4.0/KR/ko-KR/KRW/tvis/2/12409.13068.2026-07-01,13068.12409.2026-07-07/air/trava/flights?itinerary=flight|-31158|715|12409|2026-07-01T15:20|13068|2026-07-01T17:00|100|-|-|-,flight|-31158|712|13068|2026-07-07T10:05|12409|2026-07-07T12:05|120|-|-|-&carriers=-31158&operators=-31158,-31158&passengers=1&channel=website&cabin_class=economy&fps_session_id=e8a1fe88-4e8b-488b-a7e9-bae95da748fb&ticket_price=202000.00&is_npt=false&is_multipart=false&client_id=skyscanner_website&request_id=abdc18de-807f-4b3b-ad00-7585466d822d&q_ids=H4sIAAAAAAAA_-NS4GIpKcssFmLmuGkmxczRk6bQsHHiJTaNhuaNl9iMmBQYAdv_frYiAAAA|-1423301073350244144|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2026-03-31T10:34:37&pqid=false&fare_type=base_fare"
+              }
+            ],
+            "pricingOptionId": "h103rRUNRGap",
+            "fareAttributes": {}
+          }
+        ]
+      },
+      {
+        "id": "12409-2607011020--31974-0-13068-2607011210|13068-2607071815--31974-0-12409-2607072010",
+        "price": {
+          "raw": 205363.0,
+          "formatted": "₩205,363",
+          "pricingOptionId": "rLeMmj7PiCLI"
+        },
+        "legs": [
+          {
+            "id": "12409-2607011020--31974-0-13068-2607011210",
+            "origin": {
+              "id": "ICN",
+              "entityId": "95673659",
+              "name": "인천 국제",
+              "displayCode": "ICN",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 110,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-01T10:20:00",
+            "arrival": "2026-07-01T12:10:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "12409-13068-2607011020-2607011210--31974",
+                "origin": {
+                  "flightPlaceId": "ICN",
+                  "displayCode": "ICN",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "인천 국제",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "destination": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "departure": "2026-07-01T10:20:00",
+                "arrival": "2026-07-01T12:10:00",
+                "durationInMinutes": 110,
+                "flightNumber": "714",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          },
+          {
+            "id": "13068-2607071815--31974-0-12409-2607072010",
+            "origin": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "ICN",
+              "entityId": "95673659",
+              "name": "인천 국제",
+              "displayCode": "ICN",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 115,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-07T18:15:00",
+            "arrival": "2026-07-07T20:10:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "13068-12409-2607071815-2607072010--31974",
+                "origin": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "destination": {
+                  "flightPlaceId": "ICN",
+                  "displayCode": "ICN",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "인천 국제",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "departure": "2026-07-07T18:15:00",
+                "arrival": "2026-07-07T20:10:00",
+                "durationInMinutes": 115,
+                "flightNumber": "709",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          }
+        ],
+        "isSelfTransfer": false,
+        "isProtectedSelfTransfer": false,
+        "farePolicy": {
+          "isChangeAllowed": false,
+          "isPartiallyChangeable": false,
+          "isCancellationAllowed": false,
+          "isPartiallyRefundable": false
+        },
+        "eco": { "ecoContenderDelta": 8.483601 },
+        "fareAttributes": {},
+        "isMashUp": false,
+        "hasFlexibleOptions": false,
+        "score": 0.903952,
+        "pricingOptions": [
+          {
+            "agentIds": ["agod"],
+            "price": { "updateStatus": "pending", "amount": 205363.0 },
+            "items": [
+              {
+                "price": { "updateStatus": "pending", "amount": 205363.0 },
+                "segmentIds": [
+                  "12409-13068-2607011020-2607011210--31974",
+                  "13068-12409-2607071815-2607072010--31974"
+                ],
+                "bookingProposition": "PBOOK",
+                "agentId": "agod",
+                "url": "/transport_deeplink/4.0/KR/ko-KR/KRW/agod/2/12409.13068.2026-07-01,13068.12409.2026-07-07/air/trava/flights?itinerary=flight|-31974|714|12409|2026-07-01T10:20|13068|2026-07-01T12:10|110|-|-|-,flight|-31974|709|13068|2026-07-07T18:15|12409|2026-07-07T20:10|115|-|-|-&carriers=-31974&operators=-31974,-31974&passengers=1&channel=website&cabin_class=economy&fps_session_id=e8a1fe88-4e8b-488b-a7e9-bae95da748fb&ticket_price=205363.00&is_npt=false&is_multipart=false&client_id=skyscanner_website&request_id=abdc18de-807f-4b3b-ad00-7585466d822d&q_ids=H4sIAAAAAAAA_-NS4GJJTM9PEWLmuGkmxczRk6bQsHHiJTaNhuaNl9iMmBQYAU0bo2ciAAAA|3541049406198623368|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2026-03-31T10:34:34&pqid=false&fare_type=base_fare"
+              }
+            ],
+            "pricingOptionId": "rLeMmj7PiCLI",
+            "fareAttributes": {}
+          }
+        ]
+      },
+      {
+        "id": "12409-2607010730--31974-0-13068-2607010920|13068-2607071605--31974-0-11876-2607071800",
+        "price": {
+          "raw": 193191.0,
+          "formatted": "₩193,191",
+          "pricingOptionId": "iuCvhkoc-0iJ"
+        },
+        "legs": [
+          {
+            "id": "12409-2607010730--31974-0-13068-2607010920",
+            "origin": {
+              "id": "ICN",
+              "entityId": "95673659",
+              "name": "인천 국제",
+              "displayCode": "ICN",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": true
+            },
+            "destination": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 110,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-01T07:30:00",
+            "arrival": "2026-07-01T09:20:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "12409-13068-2607010730-2607010920--31974",
+                "origin": {
+                  "flightPlaceId": "ICN",
+                  "displayCode": "ICN",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "인천 국제",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "destination": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "departure": "2026-07-01T07:30:00",
+                "arrival": "2026-07-01T09:20:00",
+                "durationInMinutes": 110,
+                "flightNumber": "712",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          },
+          {
+            "id": "13068-2607071605--31974-0-11876-2607071800",
+            "origin": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "GMP",
+              "entityId": "128668604",
+              "name": "서울 김포",
+              "displayCode": "GMP",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": true
+            },
+            "durationInMinutes": 115,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-07T16:05:00",
+            "arrival": "2026-07-07T18:00:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "13068-11876-2607071605-2607071800--31974",
+                "origin": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "destination": {
+                  "flightPlaceId": "GMP",
+                  "displayCode": "GMP",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "서울 김포",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "departure": "2026-07-07T16:05:00",
+                "arrival": "2026-07-07T18:00:00",
+                "durationInMinutes": 115,
+                "flightNumber": "743",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          }
+        ],
+        "isSelfTransfer": false,
+        "isProtectedSelfTransfer": false,
+        "farePolicy": {
+          "isChangeAllowed": false,
+          "isPartiallyChangeable": false,
+          "isCancellationAllowed": false,
+          "isPartiallyRefundable": false
+        },
+        "fareAttributes": {},
+        "tags": ["second_cheapest"],
+        "isMashUp": false,
+        "hasFlexibleOptions": false,
+        "score": 0.902987,
+        "pricingOptions": [
+          {
+            "agentIds": ["skti"],
+            "price": { "updateStatus": "current", "amount": 193191.0 },
+            "items": [
+              {
+                "price": { "updateStatus": "current", "amount": 193191.0 },
+                "segmentIds": [
+                  "12409-13068-2607010730-2607010920--31974",
+                  "13068-11876-2607071605-2607071800--31974"
+                ],
+                "bookingProposition": "PBOOK",
+                "agentId": "skti",
+                "url": "/transport_deeplink/4.0/KR/ko-KR/KRW/skti/2/7001.13068.2026-07-01,13068.7001.2026-07-07/air/trava/flights?itinerary=flight|-31974|712|12409|2026-07-01T07:30|13068|2026-07-01T09:20|110|-|-|-,flight|-31974|743|13068|2026-07-07T16:05|11876|2026-07-07T18:00|115|-|-|-&carriers=-31974&operators=-31974,-31974&passengers=1&channel=website&cabin_class=economy&fps_session_id=e8a1fe88-4e8b-488b-a7e9-bae95da748fb&ticket_price=193191.00&is_npt=false&is_multipart=false&client_id=skyscanner_website&request_id=abdc18de-807f-4b3b-ad00-7585466d822d&q_ids=H4sIAAAAAAAA_-NS4GIpzi7JFGLmuGkmxczRk6bQsHHiJTaNhuaNl9iMmBQYAb3eXU8iAAAA|6998126466300457424|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2026-03-31T10:33:23&pqid=false&fare_type=base_fare"
+              }
+            ],
+            "pricingOptionId": "iuCvhkoc-0iJ",
+            "fareAttributes": {}
+          }
+        ]
+      },
+      {
+        "id": "12409-2607010730--31974-0-13068-2607010920|13068-2607071940--31974-0-12409-2607072135",
+        "price": {
+          "raw": 205363.0,
+          "formatted": "₩205,363",
+          "pricingOptionId": "axl1m9rqw0Cc"
+        },
+        "legs": [
+          {
+            "id": "12409-2607010730--31974-0-13068-2607010920",
+            "origin": {
+              "id": "ICN",
+              "entityId": "95673659",
+              "name": "인천 국제",
+              "displayCode": "ICN",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 110,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-01T07:30:00",
+            "arrival": "2026-07-01T09:20:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "12409-13068-2607010730-2607010920--31974",
+                "origin": {
+                  "flightPlaceId": "ICN",
+                  "displayCode": "ICN",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "인천 국제",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "destination": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "departure": "2026-07-01T07:30:00",
+                "arrival": "2026-07-01T09:20:00",
+                "durationInMinutes": 110,
+                "flightNumber": "712",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          },
+          {
+            "id": "13068-2607071940--31974-0-12409-2607072135",
+            "origin": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "ICN",
+              "entityId": "95673659",
+              "name": "인천 국제",
+              "displayCode": "ICN",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 115,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-07T19:40:00",
+            "arrival": "2026-07-07T21:35:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "13068-12409-2607071940-2607072135--31974",
+                "origin": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "destination": {
+                  "flightPlaceId": "ICN",
+                  "displayCode": "ICN",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "인천 국제",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "departure": "2026-07-07T19:40:00",
+                "arrival": "2026-07-07T21:35:00",
+                "durationInMinutes": 115,
+                "flightNumber": "711",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          }
+        ],
+        "isSelfTransfer": false,
+        "isProtectedSelfTransfer": false,
+        "farePolicy": {
+          "isChangeAllowed": false,
+          "isPartiallyChangeable": false,
+          "isCancellationAllowed": false,
+          "isPartiallyRefundable": false
+        },
+        "fareAttributes": {},
+        "isMashUp": false,
+        "hasFlexibleOptions": false,
+        "score": 0.899826,
+        "pricingOptions": [
+          {
+            "agentIds": ["agod"],
+            "price": { "updateStatus": "pending", "amount": 205363.0 },
+            "items": [
+              {
+                "price": { "updateStatus": "pending", "amount": 205363.0 },
+                "segmentIds": [
+                  "12409-13068-2607010730-2607010920--31974",
+                  "13068-12409-2607071940-2607072135--31974"
+                ],
+                "bookingProposition": "PBOOK",
+                "agentId": "agod",
+                "url": "/transport_deeplink/4.0/KR/ko-KR/KRW/agod/2/12409.13068.2026-07-01,13068.12409.2026-07-07/air/trava/flights?itinerary=flight|-31974|712|12409|2026-07-01T07:30|13068|2026-07-01T09:20|110|-|-|-,flight|-31974|711|13068|2026-07-07T19:40|12409|2026-07-07T21:35|115|-|-|-&carriers=-31974&operators=-31974,-31974&passengers=1&channel=website&cabin_class=economy&fps_session_id=e8a1fe88-4e8b-488b-a7e9-bae95da748fb&ticket_price=205363.00&is_npt=false&is_multipart=false&client_id=skyscanner_website&request_id=abdc18de-807f-4b3b-ad00-7585466d822d&q_ids=H4sIAAAAAAAA_-NS4GJJTM9PEWLmuGkmxczRk6bQsHHiJTaNhuaNl9iMmBQYAU0bo2ciAAAA|-4252717943854968569|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2026-03-31T10:34:34&pqid=false&fare_type=base_fare"
+              }
+            ],
+            "pricingOptionId": "axl1m9rqw0Cc",
+            "fareAttributes": {}
+          }
+        ]
+      },
+      {
+        "id": "12409-2607011020--31974-0-13068-2607011210|13068-2607071940--31974-0-12409-2607072135",
+        "price": {
+          "raw": 205363.0,
+          "formatted": "₩205,363",
+          "pricingOptionId": "g7zRRioKwraT"
+        },
+        "legs": [
+          {
+            "id": "12409-2607011020--31974-0-13068-2607011210",
+            "origin": {
+              "id": "ICN",
+              "entityId": "95673659",
+              "name": "인천 국제",
+              "displayCode": "ICN",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 110,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-01T10:20:00",
+            "arrival": "2026-07-01T12:10:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "12409-13068-2607011020-2607011210--31974",
+                "origin": {
+                  "flightPlaceId": "ICN",
+                  "displayCode": "ICN",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "인천 국제",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "destination": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "departure": "2026-07-01T10:20:00",
+                "arrival": "2026-07-01T12:10:00",
+                "durationInMinutes": 110,
+                "flightNumber": "714",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          },
+          {
+            "id": "13068-2607071940--31974-0-12409-2607072135",
+            "origin": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "ICN",
+              "entityId": "95673659",
+              "name": "인천 국제",
+              "displayCode": "ICN",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 115,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-07T19:40:00",
+            "arrival": "2026-07-07T21:35:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "13068-12409-2607071940-2607072135--31974",
+                "origin": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "destination": {
+                  "flightPlaceId": "ICN",
+                  "displayCode": "ICN",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "인천 국제",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "departure": "2026-07-07T19:40:00",
+                "arrival": "2026-07-07T21:35:00",
+                "durationInMinutes": 115,
+                "flightNumber": "711",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          }
+        ],
+        "isSelfTransfer": false,
+        "isProtectedSelfTransfer": false,
+        "farePolicy": {
+          "isChangeAllowed": false,
+          "isPartiallyChangeable": false,
+          "isCancellationAllowed": false,
+          "isPartiallyRefundable": false
+        },
+        "eco": { "ecoContenderDelta": 8.483601 },
+        "fareAttributes": {},
+        "isMashUp": false,
+        "hasFlexibleOptions": false,
+        "score": 0.898904,
+        "pricingOptions": [
+          {
+            "agentIds": ["agod"],
+            "price": { "updateStatus": "pending", "amount": 205363.0 },
+            "items": [
+              {
+                "price": { "updateStatus": "pending", "amount": 205363.0 },
+                "segmentIds": [
+                  "12409-13068-2607011020-2607011210--31974",
+                  "13068-12409-2607071940-2607072135--31974"
+                ],
+                "bookingProposition": "PBOOK",
+                "agentId": "agod",
+                "url": "/transport_deeplink/4.0/KR/ko-KR/KRW/agod/2/12409.13068.2026-07-01,13068.12409.2026-07-07/air/trava/flights?itinerary=flight|-31974|714|12409|2026-07-01T10:20|13068|2026-07-01T12:10|110|-|-|-,flight|-31974|711|13068|2026-07-07T19:40|12409|2026-07-07T21:35|115|-|-|-&carriers=-31974&operators=-31974,-31974&passengers=1&channel=website&cabin_class=economy&fps_session_id=e8a1fe88-4e8b-488b-a7e9-bae95da748fb&ticket_price=205363.00&is_npt=false&is_multipart=false&client_id=skyscanner_website&request_id=abdc18de-807f-4b3b-ad00-7585466d822d&q_ids=H4sIAAAAAAAA_-NS4GJJTM9PEWLmuGkmxczRk6bQsHHiJTaNhuaNl9iMmBQYAU0bo2ciAAAA|-2779778418764682597|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2026-03-31T10:34:34&pqid=false&fare_type=base_fare"
+              }
+            ],
+            "pricingOptionId": "g7zRRioKwraT",
+            "fareAttributes": {}
+          }
+        ]
+      },
+      {
+        "id": "12409-2607010730--31974-0-13068-2607010920|13068-2607071815--31974-0-12409-2607072010",
+        "price": {
+          "raw": 205363.0,
+          "formatted": "₩205,363",
+          "pricingOptionId": "8vO3eKUM1nY-"
+        },
+        "legs": [
+          {
+            "id": "12409-2607010730--31974-0-13068-2607010920",
+            "origin": {
+              "id": "ICN",
+              "entityId": "95673659",
+              "name": "인천 국제",
+              "displayCode": "ICN",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 110,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-01T07:30:00",
+            "arrival": "2026-07-01T09:20:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "12409-13068-2607010730-2607010920--31974",
+                "origin": {
+                  "flightPlaceId": "ICN",
+                  "displayCode": "ICN",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "인천 국제",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "destination": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "departure": "2026-07-01T07:30:00",
+                "arrival": "2026-07-01T09:20:00",
+                "durationInMinutes": 110,
+                "flightNumber": "712",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          },
+          {
+            "id": "13068-2607071815--31974-0-12409-2607072010",
+            "origin": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "ICN",
+              "entityId": "95673659",
+              "name": "인천 국제",
+              "displayCode": "ICN",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 115,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-07T18:15:00",
+            "arrival": "2026-07-07T20:10:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "13068-12409-2607071815-2607072010--31974",
+                "origin": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "destination": {
+                  "flightPlaceId": "ICN",
+                  "displayCode": "ICN",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "인천 국제",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "departure": "2026-07-07T18:15:00",
+                "arrival": "2026-07-07T20:10:00",
+                "durationInMinutes": 115,
+                "flightNumber": "709",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          }
+        ],
+        "isSelfTransfer": false,
+        "isProtectedSelfTransfer": false,
+        "farePolicy": {
+          "isChangeAllowed": false,
+          "isPartiallyChangeable": false,
+          "isCancellationAllowed": false,
+          "isPartiallyRefundable": false
+        },
+        "fareAttributes": {},
+        "isMashUp": false,
+        "hasFlexibleOptions": false,
+        "score": 0.895893,
+        "pricingOptions": [
+          {
+            "agentIds": ["agod"],
+            "price": { "updateStatus": "pending", "amount": 205363.0 },
+            "items": [
+              {
+                "price": { "updateStatus": "pending", "amount": 205363.0 },
+                "segmentIds": [
+                  "12409-13068-2607010730-2607010920--31974",
+                  "13068-12409-2607071815-2607072010--31974"
+                ],
+                "bookingProposition": "PBOOK",
+                "agentId": "agod",
+                "url": "/transport_deeplink/4.0/KR/ko-KR/KRW/agod/2/12409.13068.2026-07-01,13068.12409.2026-07-07/air/trava/flights?itinerary=flight|-31974|712|12409|2026-07-01T07:30|13068|2026-07-01T09:20|110|-|-|-,flight|-31974|709|13068|2026-07-07T18:15|12409|2026-07-07T20:10|115|-|-|-&carriers=-31974&operators=-31974,-31974&passengers=1&channel=website&cabin_class=economy&fps_session_id=e8a1fe88-4e8b-488b-a7e9-bae95da748fb&ticket_price=205363.00&is_npt=false&is_multipart=false&client_id=skyscanner_website&request_id=abdc18de-807f-4b3b-ad00-7585466d822d&q_ids=H4sIAAAAAAAA_-NS4GJJTM9PEWLmuGkmxczRk6bQsHHiJTaNhuaNl9iMmBQYAU0bo2ciAAAA|-7234310652282431544|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2026-03-31T10:34:34&pqid=false&fare_type=base_fare"
+              }
+            ],
+            "pricingOptionId": "8vO3eKUM1nY-",
+            "fareAttributes": {}
+          }
+        ]
+      },
+      {
+        "id": "11876-2607011125--31974-0-13068-2607011310|13068-2607071940--31974-0-12409-2607072135",
+        "price": {
+          "raw": 207261.0,
+          "formatted": "₩207,261",
+          "pricingOptionId": "9vbrD1-ZXkca"
+        },
+        "legs": [
+          {
+            "id": "11876-2607011125--31974-0-13068-2607011310",
+            "origin": {
+              "id": "GMP",
+              "entityId": "128668604",
+              "name": "서울 김포",
+              "displayCode": "GMP",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": true
+            },
+            "destination": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 105,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-01T11:25:00",
+            "arrival": "2026-07-01T13:10:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "11876-13068-2607011125-2607011310--31974",
+                "origin": {
+                  "flightPlaceId": "GMP",
+                  "displayCode": "GMP",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "서울 김포",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "destination": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "departure": "2026-07-01T11:25:00",
+                "arrival": "2026-07-01T13:10:00",
+                "durationInMinutes": 105,
+                "flightNumber": "736",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          },
+          {
+            "id": "13068-2607071940--31974-0-12409-2607072135",
+            "origin": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "ICN",
+              "entityId": "95673659",
+              "name": "인천 국제",
+              "displayCode": "ICN",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": true
+            },
+            "durationInMinutes": 115,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-07T19:40:00",
+            "arrival": "2026-07-07T21:35:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "13068-12409-2607071940-2607072135--31974",
+                "origin": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "destination": {
+                  "flightPlaceId": "ICN",
+                  "displayCode": "ICN",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "인천 국제",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "departure": "2026-07-07T19:40:00",
+                "arrival": "2026-07-07T21:35:00",
+                "durationInMinutes": 115,
+                "flightNumber": "711",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          }
+        ],
+        "isSelfTransfer": false,
+        "isProtectedSelfTransfer": false,
+        "farePolicy": {
+          "isChangeAllowed": false,
+          "isPartiallyChangeable": false,
+          "isCancellationAllowed": false,
+          "isPartiallyRefundable": false
+        },
+        "fareAttributes": {},
+        "tags": ["third_shortest"],
+        "isMashUp": false,
+        "hasFlexibleOptions": false,
+        "score": 0.892528,
+        "pricingOptions": [
+          {
+            "agentIds": ["mtkr"],
+            "price": { "updateStatus": "current", "amount": 207261.0 },
+            "items": [
+              {
+                "price": { "updateStatus": "current", "amount": 207261.0 },
+                "segmentIds": [
+                  "11876-13068-2607011125-2607011310--31974",
+                  "13068-12409-2607071940-2607072135--31974"
+                ],
+                "bookingProposition": "PBOOK",
+                "agentId": "mtkr",
+                "url": "/transport_deeplink/4.0/KR/ko-KR/KRW/mtkr/2/7001.13068.2026-07-01,13068.7001.2026-07-07/air/trava/flights?itinerary=flight|-31974|736|11876|2026-07-01T11:25|13068|2026-07-01T13:10|105|-|-|-,flight|-31974|711|13068|2026-07-07T19:40|12409|2026-07-07T21:35|115|-|-|-&carriers=-31974&operators=-31974,-31974&passengers=1&channel=website&cabin_class=economy&fps_session_id=e8a1fe88-4e8b-488b-a7e9-bae95da748fb&ticket_price=207261.00&is_npt=false&is_multipart=false&client_id=skyscanner_website&request_id=abdc18de-807f-4b3b-ad00-7585466d822d&q_ids=H4sIAAAAAAAA_-NS5WLJLckuEmLmuGkmxczRk6bQsHHiJTaNhuaNl9iMmBQYq5i9g8IB70lK4ycAAAA|9166849180750670111|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2026-03-31T10:33:27&pqid=true&fare_type=base_fare"
+              }
+            ],
+            "pricingOptionId": "9vbrD1-ZXkca",
+            "fareAttributes": {}
+          }
+        ]
+      },
+      {
+        "id": "11876-2607011125--31974-0-13068-2607011310|13068-2607071815--31974-0-12409-2607072010",
+        "price": {
+          "raw": 208600.0,
+          "formatted": "₩208,600",
+          "pricingOptionId": "MMFEG_-77VTK"
+        },
+        "legs": [
+          {
+            "id": "11876-2607011125--31974-0-13068-2607011310",
+            "origin": {
+              "id": "GMP",
+              "entityId": "128668604",
+              "name": "서울 김포",
+              "displayCode": "GMP",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": true
+            },
+            "destination": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "durationInMinutes": 105,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-01T11:25:00",
+            "arrival": "2026-07-01T13:10:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "11876-13068-2607011125-2607011310--31974",
+                "origin": {
+                  "flightPlaceId": "GMP",
+                  "displayCode": "GMP",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "서울 김포",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "destination": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "departure": "2026-07-01T11:25:00",
+                "arrival": "2026-07-01T13:10:00",
+                "durationInMinutes": 105,
+                "flightNumber": "736",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          },
+          {
+            "id": "13068-2607071815--31974-0-12409-2607072010",
+            "origin": {
+              "id": "KIX",
+              "entityId": "128667802",
+              "name": "오사카칸사이인터내셔널",
+              "displayCode": "KIX",
+              "city": "오사카",
+              "country": "일본",
+              "isHighlighted": false
+            },
+            "destination": {
+              "id": "ICN",
+              "entityId": "95673659",
+              "name": "인천 국제",
+              "displayCode": "ICN",
+              "city": "서울",
+              "country": "대한민국",
+              "isHighlighted": true
+            },
+            "durationInMinutes": 115,
+            "stopCount": 0,
+            "isSmallestStops": false,
+            "departure": "2026-07-07T18:15:00",
+            "arrival": "2026-07-07T20:10:00",
+            "timeDeltaInDays": 0,
+            "carriers": {
+              "marketing": [
+                {
+                  "id": -31974,
+                  "alternateId": "03",
+                  "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/03.png",
+                  "name": "피치항공"
+                }
+              ],
+              "operationType": "fully_operated"
+            },
+            "segments": [
+              {
+                "id": "13068-12409-2607071815-2607072010--31974",
+                "origin": {
+                  "flightPlaceId": "KIX",
+                  "displayCode": "KIX",
+                  "parent": {
+                    "flightPlaceId": "OSAA",
+                    "displayCode": "OSA",
+                    "name": "오사카",
+                    "type": "City"
+                  },
+                  "name": "오사카칸사이인터내셔널",
+                  "type": "Airport",
+                  "country": "일본",
+                  "countryId": "JP"
+                },
+                "destination": {
+                  "flightPlaceId": "ICN",
+                  "displayCode": "ICN",
+                  "parent": {
+                    "flightPlaceId": "SELA",
+                    "displayCode": "SEL",
+                    "name": "서울",
+                    "type": "City"
+                  },
+                  "name": "인천 국제",
+                  "type": "Airport",
+                  "country": "대한민국",
+                  "countryId": "KR"
+                },
+                "departure": "2026-07-07T18:15:00",
+                "arrival": "2026-07-07T20:10:00",
+                "durationInMinutes": 115,
+                "flightNumber": "709",
+                "marketingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                },
+                "operatingCarrier": {
+                  "id": -31974,
+                  "name": "피치항공",
+                  "alternateId": "03",
+                  "allianceId": 0,
+                  "displayCode": "MM"
+                }
+              }
+            ]
+          }
+        ],
+        "isSelfTransfer": false,
+        "isProtectedSelfTransfer": false,
+        "farePolicy": {
+          "isChangeAllowed": false,
+          "isPartiallyChangeable": false,
+          "isCancellationAllowed": false,
+          "isPartiallyRefundable": false
+        },
+        "fareAttributes": {},
+        "isMashUp": false,
+        "hasFlexibleOptions": false,
+        "score": 0.890761,
+        "pricingOptions": [
+          {
+            "agentIds": ["quna"],
+            "price": { "updateStatus": "pending", "amount": 208600.0 },
+            "items": [
+              {
+                "price": { "updateStatus": "pending", "amount": 208600.0 },
+                "segmentIds": [
+                  "11876-13068-2607011125-2607011310--31974",
+                  "13068-12409-2607071815-2607072010--31974"
+                ],
+                "bookingProposition": "PBOOK",
+                "agentId": "quna",
+                "url": "/transport_deeplink/4.0/KR/ko-KR/KRW/quna/2/7001.13068.2026-07-01,13068.7001.2026-07-07/air/trava/flights?itinerary=flight|-31974|736|11876|2026-07-01T11:25|13068|2026-07-01T13:10|105|-|-|-,flight|-31974|709|13068|2026-07-07T18:15|12409|2026-07-07T20:10|115|-|-|-&carriers=-31974&operators=-31974,-31974&passengers=1&channel=website&cabin_class=economy&fps_session_id=e8a1fe88-4e8b-488b-a7e9-bae95da748fb&ticket_price=208600.00&is_npt=false&is_multipart=false&client_id=skyscanner_website&request_id=abdc18de-807f-4b3b-ad00-7585466d822d&q_ids=H4sIAAAAAAAA_-My4GIpLM1LFGLmuGkmxczRk6bQsHHiJTaNhuaNl9iMmBQYs5i8g4pYs_N1vYOqmL2DwgFVyeLCMgAAAA|-7273514372848884028|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2026-03-31T10:34:36&pqid=true&fare_type=base_fare"
+              }
+            ],
+            "pricingOptionId": "MMFEG_-77VTK",
+            "fareAttributes": {}
+          }
+        ]
+      }
+    ],
+    "buckets": []
+  },
+  "carHire": {
+    "context": {
+      "status": "complete",
+      "sessionId": "7c8aa1a1-3449-4ccc-b28c-b3d54ed959dd",
+      "totalResults": 6
+    },
+    "results": [],
+    "buckets": [
+      {
+        "id": "소형",
+        "name": "소형",
+        "items": [
+          {
+            "groupKey": "economy",
+            "groupType": "indicative",
+            "carClass": "ECONOMY",
+            "formattedCarClass": "경차",
+            "doors": "4-5_door",
+            "formattedDoors": "4-5 도어",
+            "seats": 4,
+            "bags": 2,
+            "isAirconditioned": false,
+            "price": {
+              "currencyCode": "KRW",
+              "amount": 2248236,
+              "unit": "UNIT_CENTI"
+            },
+            "formattedPrice": "₩22,483",
+            "image": "https://logos.skyscnr.com/images/carhire/sippmaps/8322_cc2400_032_B31.png",
+            "redirectUrl": "https://www.skyscanner.co.kr/car-hire/results/128667802/128667802/2026-07-01t10:00/2026-07-07t10:00/30/?source=combined_result&filters=car-class:economy&indicative_price=22482.36",
+            "filterPill": {
+              "logicalName": "소형",
+              "filterPillScore": 9.067501,
+              "displayName": { "displayName": "소형", "isLocalised": true },
+              "composition": { "sortOrderId": "Small" }
+            },
+            "formattedTotalPrice": "₩134,895"
+          }
+        ]
+      },
+      {
+        "id": "중형",
+        "name": "중형",
+        "items": [
+          {
+            "groupKey": "compact",
+            "groupType": "indicative",
+            "carClass": "COMPACT",
+            "formattedCarClass": "소형",
+            "doors": "4-5_door",
+            "formattedDoors": "4-5 도어",
+            "seats": 4,
+            "bags": 3,
+            "isAirconditioned": false,
+            "price": {
+              "currencyCode": "KRW",
+              "amount": 2424034,
+              "unit": "UNIT_CENTI"
+            },
+            "formattedPrice": "₩24,241",
+            "image": "https://logos.skyscnr.com/images/carhire/sippmaps/8339_cc2400_032_300.png",
+            "redirectUrl": "https://www.skyscanner.co.kr/car-hire/results/128667802/128667802/2026-07-01t10:00/2026-07-07t10:00/30/?source=combined_result&filters=car-class:compact&indicative_price=24240.34",
+            "filterPill": {
+              "logicalName": "중형",
+              "filterPillScore": 8.994585,
+              "displayName": { "displayName": "중형", "isLocalised": true },
+              "composition": { "sortOrderId": "Medium" }
+            },
+            "formattedTotalPrice": "₩145,443"
+          }
+        ]
+      },
+      {
+        "id": "승합차",
+        "name": "승합차",
+        "items": [
+          {
+            "groupKey": "people_carrier",
+            "groupType": "indicative",
+            "carClass": "PEOPLE_CARRIER",
+            "formattedCarClass": "승합차",
+            "doors": "4-5_door",
+            "formattedDoors": "4-5 도어",
+            "seats": 7,
+            "bags": 3,
+            "isAirconditioned": false,
+            "price": {
+              "currencyCode": "KRW",
+              "amount": 3130705,
+              "unit": "UNIT_CENTI"
+            },
+            "formattedPrice": "₩31,308",
+            "image": "https://logos.skyscnr.com/images/carhire/sippmaps/14346_cc2400_032_PSC.png",
+            "redirectUrl": "https://www.skyscanner.co.kr/car-hire/results/128667802/128667802/2026-07-01t10:00/2026-07-07t10:00/30/?source=combined_result&filters=car-type:passenger_van&indicative_price=31307.05",
+            "filterPill": {
+              "logicalName": "승합차",
+              "filterPillScore": 8.70148,
+              "displayName": { "displayName": "승합차", "isLocalised": true },
+              "composition": { "sortOrderId": "People_carrier" }
+            },
+            "formattedTotalPrice": "₩187,843"
+          }
+        ]
+      },
+      {
+        "id": "대형",
+        "name": "대형",
+        "items": [
+          {
+            "groupKey": "fullsize",
+            "groupType": "indicative",
+            "carClass": "FULLSIZE",
+            "formattedCarClass": "대형차",
+            "doors": "4-5_door",
+            "formattedDoors": "4-5 도어",
+            "seats": 5,
+            "bags": 4,
+            "isAirconditioned": false,
+            "price": {
+              "currencyCode": "KRW",
+              "amount": 4836174,
+              "unit": "UNIT_CENTI"
+            },
+            "formattedPrice": "₩48,362",
+            "image": "https://logos.skyscnr.com/images/carhire/sippmaps/50241_cc2400_032_B625M.png",
+            "redirectUrl": "https://www.skyscanner.co.kr/car-hire/results/128667802/128667802/2026-07-01t10:00/2026-07-07t10:00/30/?source=combined_result&filters=car-class:fullsize&indicative_price=48361.74",
+            "filterPill": {
+              "logicalName": "대형",
+              "filterPillScore": 7.9941044,
+              "displayName": { "displayName": "대형", "isLocalised": true },
+              "composition": { "sortOrderId": "Large" }
+            },
+            "formattedTotalPrice": "₩290,171"
+          }
+        ]
+      },
+      {
+        "id": "SUV",
+        "name": "SUV",
+        "items": [
+          {
+            "groupKey": "suv",
+            "groupType": "indicative",
+            "carClass": "SUV",
+            "formattedCarClass": "SUV",
+            "doors": "4-5_door",
+            "formattedDoors": "4-5 도어",
+            "seats": 5,
+            "bags": 3,
+            "isAirconditioned": false,
+            "price": {
+              "currencyCode": "KRW",
+              "amount": 4992245,
+              "unit": "UNIT_CENTI"
+            },
+            "formattedPrice": "₩49,923",
+            "image": "https://logos.skyscnr.com/images/carhire/sippmaps/55191_cc2400_032_47S.png",
+            "redirectUrl": "https://www.skyscanner.co.kr/car-hire/results/128667802/128667802/2026-07-01t10:00/2026-07-07t10:00/30/?source=combined_result&filters=car-type:suv&indicative_price=49922.45",
+            "filterPill": {
+              "logicalName": "SUV",
+              "filterPillScore": 7.929371,
+              "displayName": { "displayName": "SUV", "isLocalised": true },
+              "composition": { "sortOrderId": "SUV" }
+            },
+            "formattedTotalPrice": "₩299,535"
+          }
+        ]
+      },
+      {
+        "id": "럭셔리",
+        "name": "럭셔리",
+        "items": [
+          {
+            "groupKey": "premium",
+            "groupType": "indicative",
+            "carClass": "PREMIUM",
+            "formattedCarClass": "프리미엄/럭셔리",
+            "doors": "4-5_door",
+            "formattedDoors": "4-5 도어",
+            "seats": 5,
+            "bags": 2,
+            "isAirconditioned": false,
+            "price": {
+              "currencyCode": "KRW",
+              "amount": 6478402,
+              "unit": "UNIT_CENTI"
+            },
+            "formattedPrice": "₩64,785",
+            "image": "https://logos.skyscnr.com/images/carhire/sippmaps/53743_cc2400_032_A96.png",
+            "redirectUrl": "https://www.skyscanner.co.kr/car-hire/results/128667802/128667802/2026-07-01t10:00/2026-07-07t10:00/30/?source=combined_result&filters=car-class:premium&indicative_price=64784.02",
+            "filterPill": {
+              "logicalName": "럭셔리",
+              "filterPillScore": 7.3129587,
+              "displayName": { "displayName": "럭셔리", "isLocalised": true },
+              "composition": { "sortOrderId": "Luxury" }
+            },
+            "formattedTotalPrice": "₩388,705"
+          }
+        ]
+      }
+    ]
+  },
+  "accommodations": {
+    "context": {
+      "status": "incomplete",
+      "sessionId": "a6c05260b2c14f6bb89af7e60046541c",
+      "totalResults": 0
+    },
+    "results": [],
+    "buckets": []
+  }
+}

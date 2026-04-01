@@ -3,15 +3,20 @@ from datetime import date
 
 from airfare_search import (
     build_discord_embeds,
+    describe_airlines,
+    extract_airline_codes,
+    format_schedule_line,
     format_airlines,
     format_price,
     FlightSummary,
     generate_trip_windows,
+    group_results_by_route,
     iter_search_queries,
     parse_destination_inputs,
     parse_target_month,
     ResolvedLocation,
     resolve_location,
+    select_offers_for_pricing,
 )
 
 
@@ -82,7 +87,11 @@ class AirfareSearchTests(unittest.TestCase):
             return_date="2026-07-07",
             price_total="183200",
             currency="KRW",
+            price_confirmed=True,
+            source="GDS",
             validating_airlines=["TW"],
+            marketing_airlines=["TW"],
+            operating_airlines=["TW"],
             outbound_stops=0,
             inbound_stops=0,
             outbound_departure_at="2026-07-01T10:00:00",
@@ -93,10 +102,124 @@ class AirfareSearchTests(unittest.TestCase):
         )
 
         embed = build_discord_embeds([result], limit=1)[0]
-        field_names = [field["name"] for field in embed["fields"]]
+        self.assertEqual(embed["title"], "서울 -> 후쿠오카")
+        self.assertIn("1. 2026-07-01 ~ 2026-07-07 / KRW 183,200 / 티웨이항공 (TW) / 확정가", embed["description"])
 
-        self.assertEqual(embed["title"], "#1 서울 -> 후쿠오카")
-        self.assertEqual(field_names, ["일정", "출발", "도착", "가격", "항공사"])
+    def test_extract_airline_codes_prefers_operating_carrier_when_present(self):
+        marketing, operating = extract_airline_codes(
+            [
+                {
+                    "segments": [
+                        {"carrierCode": "NH", "operating": {"carrierCode": "LJ"}},
+                        {"carrierCode": "NH", "operating": {"carrierCode": "NH"}},
+                    ]
+                }
+            ]
+        )
+
+        self.assertEqual(marketing, ["NH"])
+        self.assertEqual(operating, ["LJ", "NH"])
+
+    def test_describe_airlines_shows_operating_and_validating_when_they_differ(self):
+        result = FlightSummary(
+            origin_query="서울",
+            origin_code="SEL",
+            origin_name="서울",
+            destination_query="다카마쓰",
+            destination_code="TAK",
+            destination_name="다카마쓰",
+            departure_date="2026-07-01",
+            return_date="2026-07-07",
+            price_total="200000",
+            currency="KRW",
+            price_confirmed=True,
+            source="GDS",
+            validating_airlines=["NH"],
+            marketing_airlines=["NH"],
+            operating_airlines=["LJ"],
+            outbound_stops=0,
+            inbound_stops=0,
+            outbound_departure_at="2026-07-01T10:00:00",
+            outbound_arrival_at="2026-07-01T11:30:00",
+            inbound_departure_at="2026-07-07T12:00:00",
+            inbound_arrival_at="2026-07-07T13:30:00",
+            last_ticketing_date="2026-06-29",
+        )
+
+        self.assertEqual(
+            describe_airlines(result),
+            "operating=진에어 (LJ) | validating=전일본공수 (NH)",
+        )
+
+    def test_group_results_by_route_groups_schedule_lines_under_one_route(self):
+        result_one = FlightSummary(
+            origin_query="서울",
+            origin_code="SEL",
+            origin_name="서울",
+            destination_query="다카마쓰",
+            destination_code="TAK",
+            destination_name="다카마쓰",
+            departure_date="2026-07-01",
+            return_date="2026-07-07",
+            price_total="200000",
+            currency="KRW",
+            price_confirmed=True,
+            source="GDS",
+            validating_airlines=["LJ"],
+            marketing_airlines=["LJ"],
+            operating_airlines=["LJ"],
+            outbound_stops=0,
+            inbound_stops=0,
+            outbound_departure_at="2026-07-01T10:00:00",
+            outbound_arrival_at="2026-07-01T11:30:00",
+            inbound_departure_at="2026-07-07T12:00:00",
+            inbound_arrival_at="2026-07-07T13:30:00",
+            last_ticketing_date="2026-06-29",
+        )
+        result_two = FlightSummary(
+            origin_query="서울",
+            origin_code="SEL",
+            origin_name="서울",
+            destination_query="다카마쓰",
+            destination_code="TAK",
+            destination_name="다카마쓰",
+            departure_date="2026-07-02",
+            return_date="2026-07-08",
+            price_total="210000",
+            currency="KRW",
+            price_confirmed=False,
+            source="GDS",
+            validating_airlines=["NH"],
+            marketing_airlines=["NH"],
+            operating_airlines=["NH"],
+            outbound_stops=0,
+            inbound_stops=0,
+            outbound_departure_at="2026-07-02T10:00:00",
+            outbound_arrival_at="2026-07-02T11:30:00",
+            inbound_departure_at="2026-07-08T12:00:00",
+            inbound_arrival_at="2026-07-08T13:30:00",
+            last_ticketing_date="2026-06-30",
+        )
+
+        grouped = group_results_by_route([result_one, result_two], limit=10)
+
+        self.assertEqual(list(grouped.keys()), ["서울 -> 다카마쓰"])
+        self.assertEqual(len(grouped["서울 -> 다카마쓰"]), 2)
+        self.assertEqual(
+            format_schedule_line(grouped["서울 -> 다카마쓰"][0]),
+            "2026-07-01 ~ 2026-07-07 / KRW 200,000 / 진에어 (LJ) / 확정가",
+        )
+
+    def test_select_offers_for_pricing_returns_lowest_price_candidates(self):
+        offers = [
+            {"price": {"grandTotal": "300.00"}, "id": "3"},
+            {"price": {"grandTotal": "100.00"}, "id": "1"},
+            {"price": {"grandTotal": "200.00"}, "id": "2"},
+        ]
+
+        selected = select_offers_for_pricing(offers, limit=2)
+
+        self.assertEqual([offer["id"] for offer in selected], ["1", "2"])
 
     def test_resolve_location_supports_korean_aliases(self):
         resolved = resolve_location("도쿄", FakeClient())

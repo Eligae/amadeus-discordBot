@@ -12,6 +12,7 @@ from dataclasses import asdict, dataclass
 from datetime import date, timedelta
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
+from collections import OrderedDict
 from typing import Any, Iterable
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
@@ -63,6 +64,7 @@ LOCATION_ALIASES = {
     "뉴욕": ("NYC", "뉴욕"),
     "로마": ("ROM", "로마"),
     "바르셀로나": ("BCN", "바르셀로나"),
+    "다낭": {"DAD", "다낭"}
 }
 
 AIRLINE_ALIASES = {
@@ -110,7 +112,11 @@ class FlightSummary:
     return_date: str
     price_total: str
     currency: str
+    price_confirmed: bool
+    source: str | None
     validating_airlines: list[str]
+    marketing_airlines: list[str]
+    operating_airlines: list[str]
     outbound_stops: int
     inbound_stops: int
     outbound_departure_at: str
@@ -167,22 +173,51 @@ class AmadeusClient:
         currency: str,
         max_results: int,
         non_stop: bool,
+        travel_class: str | None,
     ) -> list[dict[str, Any]]:
+        params = {
+            "originLocationCode": origin_code,
+            "destinationLocationCode": destination_code,
+            "departureDate": departure_date.isoformat(),
+            "returnDate": return_date.isoformat(),
+            "adults": adults,
+            "currencyCode": currency.upper(),
+            "max": max_results,
+            "nonStop": str(non_stop).lower(),
+        }
+        if travel_class:
+            params["travelClass"] = travel_class.upper()
+
         response = self._request_json(
             "GET",
             "/v2/shopping/flight-offers",
-            params={
-                "originLocationCode": origin_code,
-                "destinationLocationCode": destination_code,
-                "departureDate": departure_date.isoformat(),
-                "returnDate": return_date.isoformat(),
-                "adults": adults,
-                "currencyCode": currency.upper(),
-                "max": max_results,
-                "nonStop": str(non_stop).lower(),
-            },
+            params=params,
         )
         return response.get("data", [])
+
+    def price_flight_offers(
+        self,
+        flight_offers: list[dict[str, Any]],
+    ) -> list[dict[str, Any]]:
+        if not flight_offers:
+            return []
+
+        response = self._request_json(
+            "POST",
+            "/v1/shopping/flight-offers/pricing",
+            json_body={
+                "data": {
+                    "type": "flight-offers-pricing",
+                    "flightOffers": flight_offers,
+                }
+            },
+            extra_headers={"X-HTTP-Method-Override": "POST"},
+        )
+        data = response.get("data")
+        if isinstance(data, dict):
+            offers = data.get("flightOffers")
+            return offers if isinstance(offers, list) else []
+        return data if isinstance(data, list) else []
 
     def _get_access_token(self) -> str:
         if self._access_token and time.time() < self._token_expires_at - 60:
@@ -215,6 +250,8 @@ class AmadeusClient:
         params: dict[str, Any] | None = None,
         auth: bool = True,
         form_body: dict[str, Any] | None = None,
+        json_body: dict[str, Any] | list[Any] | None = None,
+        extra_headers: dict[str, str] | None = None,
         retry_on_401: bool = True,
     ) -> dict[str, Any]:
         url = f"{self.base_url}{path}"
@@ -228,6 +265,11 @@ class AmadeusClient:
         if form_body is not None:
             headers["Content-Type"] = "application/x-www-form-urlencoded"
             body = urlencode(form_body).encode("utf-8")
+        if json_body is not None:
+            headers["Content-Type"] = "application/json"
+            body = json.dumps(json_body, ensure_ascii=False).encode("utf-8")
+        if extra_headers:
+            headers.update(extra_headers)
 
         request = Request(url, data=body, headers=headers, method=method)
         self._wait_for_rate_limit()
@@ -420,6 +462,7 @@ def build_flight_summary(
     departure_date: date,
     return_date: date,
     offers: list[dict[str, Any]],
+    price_confirmed: bool,
 ) -> FlightSummary | None:
     cheapest_offer = find_cheapest_offer(offers)
     if cheapest_offer is None:
@@ -437,6 +480,8 @@ def build_flight_summary(
     if not outbound_segments or not inbound_segments:
         return None
 
+    marketing_airlines, operating_airlines = extract_airline_codes(itineraries)
+
     return FlightSummary(
         origin_query=origin.query,
         origin_code=origin.iata_code,
@@ -448,7 +493,11 @@ def build_flight_summary(
         return_date=return_date.isoformat(),
         price_total=str(price.get("grandTotal") or price.get("total")),
         currency=str(price.get("currency", "")),
+        price_confirmed=price_confirmed,
+        source=cheapest_offer.get("source"),
         validating_airlines=list(cheapest_offer.get("validatingAirlineCodes", [])),
+        marketing_airlines=marketing_airlines,
+        operating_airlines=operating_airlines,
         outbound_stops=max(len(outbound_segments) - 1, 0),
         inbound_stops=max(len(inbound_segments) - 1, 0),
         outbound_departure_at=str(outbound_segments[0].get("departure", {}).get("at", "")),
@@ -477,6 +526,43 @@ def find_cheapest_offer(offers: list[dict[str, Any]]) -> dict[str, Any] | None:
             cheapest_offer = offer
 
     return cheapest_offer
+
+
+def extract_airline_codes(itineraries: list[dict[str, Any]]) -> tuple[list[str], list[str]]:
+    marketing_codes: list[str] = []
+    operating_codes: list[str] = []
+
+    for itinerary in itineraries:
+        for segment in itinerary.get("segments", []):
+            marketing_code = segment.get("carrierCode")
+            operating_code = segment.get("operating", {}).get("carrierCode") or marketing_code
+            if marketing_code and marketing_code not in marketing_codes:
+                marketing_codes.append(str(marketing_code))
+            if operating_code and operating_code not in operating_codes:
+                operating_codes.append(str(operating_code))
+
+    return marketing_codes, operating_codes
+
+
+def rank_offers_by_price(offers: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    ranked: list[tuple[Decimal, dict[str, Any]]] = []
+    for offer in offers:
+        total = offer.get("price", {}).get("grandTotal") or offer.get("price", {}).get("total")
+        if total is None:
+            continue
+        try:
+            total_decimal = Decimal(str(total))
+        except (InvalidOperation, TypeError):
+            continue
+        ranked.append((total_decimal, offer))
+    ranked.sort(key=lambda item: item[0])
+    return [offer for _, offer in ranked]
+
+
+def select_offers_for_pricing(offers: list[dict[str, Any]], *, limit: int) -> list[dict[str, Any]]:
+    if limit < 1:
+        return []
+    return rank_offers_by_price(offers)[:limit]
 
 
 def iter_search_queries(
@@ -552,6 +638,7 @@ def search_lowest_fares(args: argparse.Namespace) -> tuple[list[FlightSummary], 
                 currency=args.currency,
                 max_results=args.max_results,
                 non_stop=args.non_stop,
+                travel_class=args.travel_class,
             )
         except AmadeusApiError as exc:
             errors.append(
@@ -560,12 +647,32 @@ def search_lowest_fares(args: argparse.Namespace) -> tuple[list[FlightSummary], 
             )
             continue
 
+        priced_offers = offers
+        price_confirmed = False
+        if offers and not args.skip_price_confirmation:
+            pricing_candidates = select_offers_for_pricing(
+                offers,
+                limit=args.confirm_top_offers,
+            )
+            if pricing_candidates:
+                try:
+                    confirmed_offers = client.price_flight_offers(pricing_candidates)
+                    if confirmed_offers:
+                        priced_offers = confirmed_offers
+                        price_confirmed = True
+                except AmadeusApiError as exc:
+                    errors.append(
+                        f"pricing {origin.iata_code}->{destination.iata_code} "
+                        f"{departure_date.isoformat()}~{return_date.isoformat()}: {exc}"
+                    )
+
         summary = build_flight_summary(
             origin=origin,
             destination=destination,
             departure_date=departure_date,
             return_date=return_date,
-            offers=offers,
+            offers=priced_offers,
+            price_confirmed=price_confirmed,
         )
         if summary is not None:
             results.append(summary)
@@ -579,16 +686,14 @@ def print_results(results: list[FlightSummary], *, limit: int) -> None:
         print("조건에 맞는 항공권을 찾지 못했습니다.")
         return
 
-    for index, result in enumerate(results[:limit], start=1):
-        airlines = ",".join(result.validating_airlines) if result.validating_airlines else "-"
-        print(
-            f"{index:>2}. {result.currency} {result.price_total:>8} | "
-            f"{result.origin_name}({result.origin_code}) -> "
-            f"{result.destination_name}({result.destination_code}) | "
-            f"{result.departure_date} ~ {result.return_date} | "
-            f"airline={airlines} | "
-            f"stops={result.outbound_stops}/{result.inbound_stops}"
-        )
+    grouped_results = group_results_by_route(results, limit=limit)
+    total_groups = len(grouped_results)
+    for group_index, (route_title, route_results) in enumerate(grouped_results.items(), start=1):
+        print(route_title)
+        for index, result in enumerate(route_results, start=1):
+            print(f"  {index}. {format_schedule_line(result)}")
+        if group_index < total_groups:
+            print()
 
 
 def write_output(path: str, results: list[FlightSummary], errors: list[str]) -> None:
@@ -623,20 +728,56 @@ def format_airlines(codes: list[str]) -> str:
     return ", ".join(labels)
 
 
+def describe_airlines(result: FlightSummary) -> str:
+    operating = format_airlines(result.operating_airlines)
+    validating = format_airlines(result.validating_airlines)
+    if validating != "-" and result.operating_airlines and result.validating_airlines != result.operating_airlines:
+        return f"operating={operating} | validating={validating}"
+    return operating if operating != "-" else validating
+
+
+def route_title_for_result(result: FlightSummary) -> str:
+    return f"{result.origin_name} -> {result.destination_name}"
+
+
+def format_schedule_line(result: FlightSummary) -> str:
+    confirmation_label = "확정가" if result.price_confirmed else "검색가"
+    return (
+        f"{result.departure_date} ~ {result.return_date} / "
+        f"{format_price(result.currency, result.price_total)} / "
+        f"{describe_airlines(result)} / {confirmation_label}"
+    )
+
+
+def group_results_by_route(
+    results: list[FlightSummary],
+    *,
+    limit: int,
+) -> "OrderedDict[str, list[FlightSummary]]":
+    grouped: "OrderedDict[str, list[FlightSummary]]" = OrderedDict()
+    for result in results[:limit]:
+        route_title = route_title_for_result(result)
+        grouped.setdefault(route_title, []).append(result)
+    return grouped
+
+
 def build_discord_embeds(results: list[FlightSummary], *, limit: int) -> list[dict[str, Any]]:
     embeds = []
-    for index, result in enumerate(results[:limit], start=1):
+    for route_title, route_results in group_results_by_route(results, limit=limit).items():
+        description_lines = [
+            f"{index}. {format_schedule_line(result)}"
+            for index, result in enumerate(route_results, start=1)
+        ]
         embed = {
-            "title": f"#{index} {result.origin_name} -> {result.destination_name}",
+            "title": route_title,
             "color": 3447003,
-            "fields": [
-                {"name": "일정", "value": f"{result.departure_date} ~ {result.return_date}", "inline": False},
-                {"name": "출발", "value": f"{result.origin_name} ({result.origin_code})", "inline": True},
-                {"name": "도착", "value": f"{result.destination_name} ({result.destination_code})", "inline": True},
-                {"name": "가격", "value": format_price(result.currency, result.price_total), "inline": True},
-                {"name": "항공사", "value": format_airlines(result.validating_airlines), "inline": False},
-            ],
-            "footer": {"text": f"경유 {result.outbound_stops}/{result.inbound_stops} | 마지막 발권일 {result.last_ticketing_date or '-'}"},
+            "description": "\n".join(description_lines),
+            "footer": {
+                "text": (
+                    f"source={route_results[0].source or '-'} | "
+                    f"첫 일정 발권일 {route_results[0].last_ticketing_date or '-'}"
+                )
+            },
         }
         embeds.append(embed)
     return embeds
@@ -757,12 +898,29 @@ def build_parser() -> argparse.ArgumentParser:
         help="출발지 목록. 기본값은 서울, 청주",
     )
     parser.add_argument("--adults", type=int, default=1, help="성인 승객 수")
+    parser.add_argument(
+        "--travel-class",
+        default="ECONOMY",
+        choices=["ECONOMY", "PREMIUM_ECONOMY", "BUSINESS", "FIRST"],
+        help="좌석 등급. 기본값 ECONOMY",
+    )
     parser.add_argument("--currency", default="KRW", help="통화 코드. 기본값 KRW")
     parser.add_argument(
         "--max-results",
         type=int,
-        default=20,
-        help="Amadeus에서 한 번에 가져올 최대 오퍼 수. 기본값 20",
+        default=250,
+        help="Amadeus에서 한 번에 가져올 최대 오퍼 수. 기본값 250",
+    )
+    parser.add_argument(
+        "--confirm-top-offers",
+        type=int,
+        default=6,
+        help="Flight Offers Price로 최종가 확인할 상위 후보 수. 기본값 6",
+    )
+    parser.add_argument(
+        "--skip-price-confirmation",
+        action="store_true",
+        help="Flight Offers Price 재확인을 건너뛰고 검색가만 사용",
     )
     parser.add_argument(
         "--limit",
@@ -831,6 +989,16 @@ def main(argv: Iterable[str] | None = None) -> int:
         )
     if not args.discord_user_agent:
         args.discord_user_agent = os.getenv("DISCORD_USER_AGENT") or DEFAULT_DISCORD_USER_AGENT
+
+    if "test.api.amadeus.com" in args.base_url:
+        print(
+            "warning: 현재 Amadeus test 환경을 사용 중입니다. test 환경 데이터는 제한적이고 cached 입니다.",
+            file=sys.stderr,
+        )
+    print(
+        "note: Current Amadeus API is using Production keys",
+        file=sys.stderr,
+    )
 
     try:
         results, errors = search_lowest_fares(args)
