@@ -9,7 +9,7 @@
 - ...
 - 7/31 ~ 8/6
 
-기본 출발지는 `서울(SEL)` 과 `청주(CJJ)` 입니다.
+기본 출발지는 `인천(ICN)` 입니다.
 
 주의:
 
@@ -62,6 +62,16 @@ python3 airfare_search.py \
   --max-searches 10
 ```
 
+기간을 직접 지정하려면 (`6/20 ~ 7/20`):
+
+```bash
+python3 airfare_search.py \
+  --destinations 오사카 도쿄 \
+  --trip-days 7 \
+  --start-date 6/20 \
+  --end-date 7/20
+```
+
 리스트 문자열처럼 넘겨도 됩니다:
 
 ```bash
@@ -90,15 +100,28 @@ python3 airfare_search.py \
   --trip-days 7 \
   --month 7 \
   --max-searches 10 \
-  --discord-results-limit 10
+  --discord-results-limit 20
+```
+
+PNG 표로 보내려면 (기본값):
+
+```bash
+python3 airfare_search.py \
+  --destinations "다카마쓰=TAK" \
+  --trip-days 7 \
+  --start-date 6/20 \
+  --end-date 7/20 \
+  --discord-table-format png
 ```
 
 `.env` 에 `DISCORD_WEBHOOK_URL` 이 있으면 `--discord-webhook-url` 없이도 자동 전송됩니다.
 
-Discord 메시지에는 각 결과별로 아래 필드가 들어갑니다.
+Discord 메시지는 목적지(경로)마다 별도 표로 전송됩니다.
 
-- `서울 -> 다카마쓰` 같은 경로 제목
-- 경로 아래에 `일정 / 가격 / 항공사 / 확정가 여부` 줄 목록
+- 경로 제목 예: `서울 -> 다카마쓰`
+- 표 컬럼 고정: `no. / 일정 / 최저가 / 시간 / 항공사`
+- Discord는 마크다운 테이블 렌더를 지원하지 않아, 웹훅에서는 `code block + 고정폭 ASCII 표`로 보냄
+- 목적지 결과가 길면 같은 목적지에서 다음 표 블록으로 자동 줄바꿈
 
 샘플 출력:
 
@@ -112,18 +135,27 @@ Discord 메시지에는 각 결과별로 아래 필드가 들어갑니다.
 - `--destinations`: 공백 구분 목록 또는 `"[오사카, 도쿄]"` 같은 문자열
 - `--trip-days`: 여행 일수. `7` 이면 `7/1~7/7` 패턴
 - `--month`: `YYYY-MM` 또는 `MM`
-- `--origins`: 기본값은 `서울 청주`
+- `--start-date`, `--end-date`: `YYYY-MM-DD` 또는 `M/D(M-D)`
+- `--month` 와 `--start-date/--end-date` 는 동시에 사용할 수 없음
+- `--departure`: 기본값은 `인천`
 - `--travel-class`: 기본값 `ECONOMY`
 - `--max-results`: Amadeus 한 번 호출 시 받을 오퍼 수
 - `--confirm-top-offers`: 최종가 확인할 상위 후보 수. 기본값 `6`
 - `--skip-price-confirmation`: Flight Offers Price 재확인 생략
+- `--concurrency`: 검색 동시 실행 수. 기본값 `1`
 - `--limit`: 화면에 보여줄 상위 결과 수
 - `--max-searches`: 실제 실행할 검색 조합 수 제한. 테스트할 때 `10` 추천
 - `--output`: 전체 결과를 JSON으로 저장
 - `--discord-webhook-url`: Discord webhook URL
-- `--discord-results-limit`: Discord에 보낼 상위 결과 수
+- `--discord-results-limit`: Discord에 보낼 상위 결과 수 (기본값: 전체 결과)
 - `--discord-username`: Discord 메시지 발신 이름
 - `--discord-user-agent`: Discord 전송 시 사용할 User-Agent
+- `--discord-table-format`: `png`(기본) 또는 `text`
+
+Discord 길이 제한 대응:
+
+- `content` 2000자, embed description 4096자, 메시지당 embed 총합 6000자 제한에 맞춰 자동 분할 전송합니다.
+- `png` 모드는 macOS `qlmanage`를 사용해 표 이미지를 렌더링합니다.
 
 ## 한글 도시명 주의
 

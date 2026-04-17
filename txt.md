@@ -28,3 +28,14 @@ curl 'https://www.skyscanner.co.kr/g/radar/api/v2/web-unified-search/' \
   -H 'x-skyscanner-viewid: abdc18de-807f-4b3b-ad00-7585466d822d' \
   --data-raw '{"cabinClass":"ECONOMY","childAges":[],"adults":1,"legs":[{"legOrigin":{"@type":"entity","entityId":"27538638"},"legDestination":{"@type":"entity","entityId":"128667802"},"dates":{"@type":"date","year":"2026","month":"07","day":"01"},"placeOfStay":"27542908"},{"legOrigin":{"@type":"entity","entityId":"128667802"},"legDestination":{"@type":"entity","entityId":"27538638"},"dates":{"@type":"date","year":"2026","month":"07","day":"07"}}]}'
 ```
+
+## 구분 | #1 | #2 | #3 | #4
+
+일정 | 06-22~06-25 | 06-21~06-24 | 06-28~07-01 | 07-05~07-08
+최저가 | W258,700 | W265,600 | W265,600 | W265,600
+시간 | 08:00/11:35 | 07:10/16:30 | 07:10/11:00 | 08:10/09:00
+항공사 | TW | 7C | 7C | 7C
+
+| no. | 일정       | 최저가   | 시간        | 항공사 |
+| --- | ---------- | -------- | ----------- | ------ |
+| 1   | 06/22 ~ 25 | W258,700 | 08:00/11:35 | TW     |

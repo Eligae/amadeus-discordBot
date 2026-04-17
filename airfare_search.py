@@ -2,11 +2,17 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import json
 import os
 import re
+import shutil
+import subprocess
 import sys
+import tempfile
+import threading
 import time
+import uuid
 from calendar import monthrange
 from dataclasses import asdict, dataclass
 from datetime import date, timedelta
@@ -20,9 +26,12 @@ from urllib.request import Request, urlopen
 
 
 DEFAULT_BASE_URL = "https://test.api.amadeus.com"
-DEFAULT_ORIGINS = ["서울", "청주"]
+DEFAULT_DEPARTURES = ["인천"]
 DEFAULT_REQUEST_DELAY = 0.12
 DISCORD_EMBED_BATCH_SIZE = 10
+DISCORD_CONTENT_MAX_CHARS = 2000
+DISCORD_EMBED_DESCRIPTION_MAX_CHARS = 4096
+DISCORD_EMBED_TOTAL_MAX_CHARS_PER_MESSAGE = 6000
 DEFAULT_DISCORD_USER_AGENT = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
     "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -388,6 +397,30 @@ def parse_target_month(value: str, *, today: date | None = None) -> tuple[int, i
     return year, month
 
 
+def parse_trip_date(value: str, *, today: date | None = None) -> date:
+    if today is None:
+        today = date.today()
+
+    raw = value.strip()
+    if re.fullmatch(r"\d{4}-\d{1,2}-\d{1,2}", raw):
+        year_text, month_text, day_text = raw.split("-", 2)
+        return date(int(year_text), int(month_text), int(day_text))
+
+    if re.fullmatch(r"\d{1,2}[/-]\d{1,2}", raw):
+        separator = "/" if "/" in raw else "-"
+        month_text, day_text = raw.split(separator, 1)
+        month = int(month_text)
+        day = int(day_text)
+        candidate = date(today.year, month, day)
+        if candidate < today:
+            candidate = date(today.year + 1, month, day)
+        return candidate
+
+    raise ValueError(
+        "날짜는 YYYY-MM-DD 또는 M/D(M-D) 형식이어야 합니다. 예: 2026-06-20, 6/20"
+    )
+
+
 def generate_trip_windows(month_value: str, trip_days: int) -> list[tuple[date, date]]:
     if trip_days < 1:
         raise ValueError("trip-days는 1 이상이어야 합니다.")
@@ -400,6 +433,45 @@ def generate_trip_windows(month_value: str, trip_days: int) -> list[tuple[date, 
         return_date = departure_date + timedelta(days=trip_days - 1)
         windows.append((departure_date, return_date))
     return windows
+
+
+def generate_trip_windows_by_range(
+    start_date: date,
+    end_date: date,
+    trip_days: int,
+) -> list[tuple[date, date]]:
+    if trip_days < 1:
+        raise ValueError("trip-days는 1 이상이어야 합니다.")
+    if end_date < start_date:
+        raise ValueError("end-date는 start-date보다 같거나 뒤여야 합니다.")
+
+    windows = []
+    current = start_date
+    while current <= end_date:
+        return_date = current + timedelta(days=trip_days - 1)
+        windows.append((current, return_date))
+        current += timedelta(days=1)
+    return windows
+
+
+def resolve_search_windows(args: argparse.Namespace) -> list[tuple[date, date]]:
+    has_month = bool(args.month)
+    has_range = bool(args.start_date or args.end_date)
+
+    if has_month and has_range:
+        raise ValueError("--month 와 --start-date/--end-date는 동시에 사용할 수 없습니다.")
+    if not has_month and not has_range:
+        raise ValueError("--month 또는 --start-date/--end-date를 지정해야 합니다.")
+
+    if has_month:
+        return generate_trip_windows(args.month, args.trip_days)
+
+    if not args.start_date or not args.end_date:
+        raise ValueError("기간 검색은 --start-date 와 --end-date를 함께 지정해야 합니다.")
+
+    start_date = parse_trip_date(args.start_date)
+    end_date = parse_trip_date(args.end_date)
+    return generate_trip_windows_by_range(start_date, end_date, args.trip_days)
 
 
 def resolve_location(query: str, client: AmadeusClient) -> ResolvedLocation:
@@ -589,36 +661,75 @@ def search_lowest_fares(args: argparse.Namespace) -> tuple[list[FlightSummary], 
     if not client_id or not client_secret:
         raise ValueError("AMADEUS_CLIENT_ID / AMADEUS_CLIENT_SECRET 환경변수가 필요합니다.")
 
-    client = AmadeusClient(
+    raw_destinations = parse_destination_inputs(args.destinations)
+    raw_departures = parse_destination_inputs(args.departure)
+    raw_origins = parse_destination_inputs(args.origins) if getattr(args, "origins", None) else []
+    if raw_origins:
+        raw_departures = raw_origins
+    if not raw_destinations:
+        raise ValueError("최소 1개의 destination이 필요합니다.")
+    if not raw_departures:
+        raise ValueError("최소 1개의 departure가 필요합니다.")
+
+    # Resolve locations once before dispatching query tasks.
+    bootstrap_client = AmadeusClient(
         client_id,
         client_secret,
         base_url=args.base_url,
         request_delay=args.request_delay,
     )
 
-    raw_destinations = parse_destination_inputs(args.destinations)
-    raw_origins = parse_destination_inputs(args.origins)
-    if not raw_destinations:
-        raise ValueError("최소 1개의 destination이 필요합니다.")
-
-    destinations = [resolve_location(destination, client) for destination in raw_destinations]
-    origins = [resolve_location(origin, client) for origin in raw_origins]
-    windows = generate_trip_windows(args.month, args.trip_days)
+    destinations = [resolve_location(destination, bootstrap_client) for destination in raw_destinations]
+    origins = [resolve_location(origin, bootstrap_client) for origin in raw_departures]
+    windows = resolve_search_windows(args)
     max_searches = args.max_searches
     if max_searches is not None and max_searches < 1:
         raise ValueError("max-searches는 1 이상이어야 합니다.")
+    if args.concurrency < 1:
+        raise ValueError("concurrency는 1 이상이어야 합니다.")
 
     results: list[FlightSummary] = []
     errors: list[str] = []
     total_queries = len(origins) * len(destinations) * len(windows)
     planned_queries = min(total_queries, max_searches) if max_searches is not None else total_queries
 
-    for query_index, origin, destination, departure_date, return_date in iter_search_queries(
-        origins,
-        destinations,
-        windows,
-        max_searches=max_searches,
-    ):
+    if not args.quiet:
+        print(
+            f"plan: origins={len(origins)} x destinations={len(destinations)} x "
+            f"departure-days={len(windows)} => queries={planned_queries}",
+            file=sys.stderr,
+        )
+
+    query_tasks = list(
+        iter_search_queries(
+            origins,
+            destinations,
+            windows,
+            max_searches=max_searches,
+        )
+    )
+
+    thread_local = threading.local()
+
+    def get_worker_client() -> AmadeusClient:
+        existing = getattr(thread_local, "client", None)
+        if existing is not None:
+            return existing
+        client = AmadeusClient(
+            client_id,
+            client_secret,
+            base_url=args.base_url,
+            request_delay=args.request_delay,
+        )
+        thread_local.client = client
+        return client
+
+    def process_query_task(
+        query_task: tuple[int, ResolvedLocation, ResolvedLocation, date, date],
+    ) -> tuple[FlightSummary | None, list[str]]:
+        query_index, origin, destination, departure_date, return_date = query_task
+        client = get_worker_client()
+        local_errors: list[str] = []
         if not args.quiet:
             print(
                 f"[{query_index}/{planned_queries}] "
@@ -627,7 +738,6 @@ def search_lowest_fares(args: argparse.Namespace) -> tuple[list[FlightSummary], 
                 f"{departure_date.isoformat()} ~ {return_date.isoformat()}",
                 file=sys.stderr,
             )
-
         try:
             offers = client.search_flight_offers(
                 origin_code=origin.iata_code,
@@ -641,11 +751,11 @@ def search_lowest_fares(args: argparse.Namespace) -> tuple[list[FlightSummary], 
                 travel_class=args.travel_class,
             )
         except AmadeusApiError as exc:
-            errors.append(
+            local_errors.append(
                 f"{origin.iata_code}->{destination.iata_code} "
                 f"{departure_date.isoformat()}~{return_date.isoformat()}: {exc}"
             )
-            continue
+            return None, local_errors
 
         priced_offers = offers
         price_confirmed = False
@@ -661,7 +771,7 @@ def search_lowest_fares(args: argparse.Namespace) -> tuple[list[FlightSummary], 
                         priced_offers = confirmed_offers
                         price_confirmed = True
                 except AmadeusApiError as exc:
-                    errors.append(
+                    local_errors.append(
                         f"pricing {origin.iata_code}->{destination.iata_code} "
                         f"{departure_date.isoformat()}~{return_date.isoformat()}: {exc}"
                     )
@@ -674,8 +784,27 @@ def search_lowest_fares(args: argparse.Namespace) -> tuple[list[FlightSummary], 
             offers=priced_offers,
             price_confirmed=price_confirmed,
         )
-        if summary is not None:
-            results.append(summary)
+        return summary, local_errors
+
+    if args.concurrency == 1:
+        for query_task in query_tasks:
+            summary, local_errors = process_query_task(query_task)
+            if summary is not None:
+                results.append(summary)
+            if local_errors:
+                errors.extend(local_errors)
+    else:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=args.concurrency) as executor:
+            future_map = {
+                executor.submit(process_query_task, query_task): query_task
+                for query_task in query_tasks
+            }
+            for future in concurrent.futures.as_completed(future_map):
+                summary, local_errors = future.result()
+                if summary is not None:
+                    results.append(summary)
+                if local_errors:
+                    errors.extend(local_errors)
 
     results.sort(key=lambda item: item.price_decimal())
     return results, errors
@@ -749,6 +878,162 @@ def format_schedule_line(result: FlightSummary) -> str:
     )
 
 
+def short_date(date_text: str) -> str:
+    # Keep date cell narrow for Discord table rendering.
+    return date_text[5:] if len(date_text) >= 10 else date_text
+
+
+def short_time(datetime_text: str) -> str:
+    if "T" not in datetime_text:
+        return datetime_text
+    time_part = datetime_text.split("T", 1)[1]
+    return time_part[:5] if len(time_part) >= 5 else time_part
+
+
+def compact_time_window(result: FlightSummary) -> str:
+    outbound = short_time(result.outbound_departure_at)
+    inbound = short_time(result.inbound_departure_at)
+    if outbound and inbound:
+        return f"{outbound}/{inbound}"
+    return outbound or inbound or "-"
+
+
+def compact_price_text(result: FlightSummary) -> str:
+    amount = format_price(result.currency, result.price_total)
+    if result.currency.upper() == "KRW":
+        return amount.replace("KRW ", "W")
+    return amount.replace(" ", "")
+
+
+def compact_airline_label(result: FlightSummary) -> str:
+    codes = result.operating_airlines or result.validating_airlines
+    if not codes:
+        return "-"
+    return codes[0]
+
+
+def compact_schedule_text(result: FlightSummary) -> str:
+    dep = short_date(result.departure_date).replace("-", "/")
+    ret_raw = short_date(result.return_date).replace("-", "/")
+    dep_month = dep.split("/", 1)[0] if "/" in dep else dep
+    ret_month = ret_raw.split("/", 1)[0] if "/" in ret_raw else ret_raw
+    if dep_month == ret_month and "/" in ret_raw:
+        ret = ret_raw.split("/", 1)[1]
+    else:
+        ret = ret_raw
+    return f"{dep} ~ {ret}"
+
+
+def build_route_table_block(route_results: list[FlightSummary], *, start_index: int, rows_per_block: int = 12) -> str:
+    selected = route_results[start_index:start_index + rows_per_block]
+    if not selected:
+        return ""
+
+    widths = {
+        "no": 3,
+        "schedule": 12,
+        "price": 10,
+        "time": 11,
+        "airline": 5,
+    }
+
+    def fit(text: str, width: int) -> str:
+        if len(text) <= width:
+            return text.ljust(width)
+        return f"{text[: width - 1]}…"
+
+    def row(no: str, schedule: str, price: str, time_text: str, airline: str) -> str:
+        return (
+            f"|{fit(no, widths['no'])}"
+            f"|{fit(schedule, widths['schedule'])}"
+            f"|{fit(price, widths['price'])}"
+            f"|{fit(time_text, widths['time'])}"
+            f"|{fit(airline, widths['airline'])}|"
+        )
+
+    header = row("no.", "일정", "최저가", "시간", "항공사")
+    separator = (
+        f"|{'-' * widths['no']}"
+        f"|{'-' * widths['schedule']}"
+        f"|{'-' * widths['price']}"
+        f"|{'-' * widths['time']}"
+        f"|{'-' * widths['airline']}|"
+    )
+
+    lines = [
+        header,
+        separator,
+    ]
+    for index, item in enumerate(selected, start=start_index + 1):
+        lines.append(
+            row(
+                str(index),
+                compact_schedule_text(item),
+                compact_price_text(item),
+                compact_time_window(item),
+                compact_airline_label(item),
+            )
+        )
+    return "\n".join(lines)
+
+
+def build_route_table_description(route_results: list[FlightSummary], *, rows_per_block: int = 12) -> str:
+    blocks = []
+    for start in range(0, len(route_results), rows_per_block):
+        block = build_route_table_block(route_results, start_index=start, rows_per_block=rows_per_block)
+        if block:
+            blocks.append(block)
+    return "\n\n".join(blocks)
+
+
+def build_route_table_blocks(route_results: list[FlightSummary], *, rows_per_block: int = 12) -> list[str]:
+    # Split by table rows while respecting Discord embed description limits.
+    blocks: list[str] = []
+    current_start = 0
+    cursor = 0
+
+    while cursor < len(route_results):
+        max_rows = min(rows_per_block, len(route_results) - current_start)
+        candidate_rows = min(cursor - current_start + 1, max_rows)
+        candidate_block = build_route_table_block(
+            route_results,
+            start_index=current_start,
+            rows_per_block=candidate_rows,
+        )
+        candidate_description = f"```text\n{candidate_block}\n```"
+
+        if len(candidate_description) <= DISCORD_EMBED_DESCRIPTION_MAX_CHARS:
+            cursor += 1
+            if cursor - current_start < max_rows:
+                continue
+            blocks.append(candidate_description)
+            current_start = cursor
+            continue
+
+        if cursor == current_start:
+            blocks.append(truncate_discord_embed_description(candidate_description))
+            cursor += 1
+            current_start = cursor
+            continue
+
+        final_rows = cursor - current_start
+        final_block = build_route_table_block(
+            route_results,
+            start_index=current_start,
+            rows_per_block=final_rows,
+        )
+        blocks.append(f"```text\n{final_block}\n```")
+        current_start = cursor
+
+    return blocks
+
+
+def truncate_discord_embed_description(text: str) -> str:
+    if len(text) <= DISCORD_EMBED_DESCRIPTION_MAX_CHARS:
+        return text
+    return f"{text[: DISCORD_EMBED_DESCRIPTION_MAX_CHARS - 1]}…"
+
+
 def group_results_by_route(
     results: list[FlightSummary],
     *,
@@ -764,27 +1049,190 @@ def group_results_by_route(
 def build_discord_embeds(results: list[FlightSummary], *, limit: int) -> list[dict[str, Any]]:
     embeds = []
     for route_title, route_results in group_results_by_route(results, limit=limit).items():
-        description_lines = [
-            f"{index}. {format_schedule_line(result)}"
-            for index, result in enumerate(route_results, start=1)
-        ]
-        embed = {
-            "title": route_title,
-            "color": 3447003,
-            "description": "\n".join(description_lines),
-            "footer": {
-                "text": (
-                    f"source={route_results[0].source or '-'} | "
-                    f"첫 일정 발권일 {route_results[0].last_ticketing_date or '-'}"
-                )
-            },
-        }
-        embeds.append(embed)
+        route_blocks = build_route_table_blocks(route_results, rows_per_block=12)
+        total_blocks = len(route_blocks)
+        for block_index, description in enumerate(route_blocks, start=1):
+            title = route_title if total_blocks == 1 else f"{route_title} ({block_index}/{total_blocks})"
+            embed = {
+                "title": title,
+                "color": 3447003,
+                "description": description,
+                "footer": {
+                    "text": (
+                        f"source={route_results[0].source or '-'} | "
+                        f"첫 일정 발권일 {route_results[0].last_ticketing_date or '-'}"
+                    )
+                },
+            }
+            embeds.append(embed)
     return embeds
 
 
 def chunked(values: list[dict[str, Any]], size: int) -> list[list[dict[str, Any]]]:
     return [values[index:index + size] for index in range(0, len(values), size)]
+
+
+def estimate_embed_char_count(embed: dict[str, Any]) -> int:
+    total = 0
+    total += len(str(embed.get("title", "")))
+    total += len(str(embed.get("description", "")))
+    footer = embed.get("footer", {})
+    if isinstance(footer, dict):
+        total += len(str(footer.get("text", "")))
+    for field in embed.get("fields", []) if isinstance(embed.get("fields", []), list) else []:
+        if isinstance(field, dict):
+            total += len(str(field.get("name", "")))
+            total += len(str(field.get("value", "")))
+    author = embed.get("author", {})
+    if isinstance(author, dict):
+        total += len(str(author.get("name", "")))
+    return total
+
+
+def split_embeds_for_discord(embeds: list[dict[str, Any]]) -> list[list[dict[str, Any]]]:
+    batches: list[list[dict[str, Any]]] = []
+    current_batch: list[dict[str, Any]] = []
+    current_chars = 0
+
+    for embed in embeds:
+        embed_chars = estimate_embed_char_count(embed)
+        if (
+            current_batch
+            and (
+                len(current_batch) >= DISCORD_EMBED_BATCH_SIZE
+                or current_chars + embed_chars > DISCORD_EMBED_TOTAL_MAX_CHARS_PER_MESSAGE
+            )
+        ):
+            batches.append(current_batch)
+            current_batch = []
+            current_chars = 0
+        current_batch.append(embed)
+        current_chars += embed_chars
+
+    if current_batch:
+        batches.append(current_batch)
+    return batches
+
+
+def truncate_discord_content(text: str) -> str:
+    if len(text) <= DISCORD_CONTENT_MAX_CHARS:
+        return text
+    return f"{text[: DISCORD_CONTENT_MAX_CHARS - 1]}…"
+
+
+def sanitize_filename(name: str) -> str:
+    cleaned = re.sub(r"[^A-Za-z0-9._-]+", "_", name).strip("_")
+    return cleaned or f"table_{uuid.uuid4().hex[:8]}"
+
+
+def render_table_png_bytes(title: str, table_text: str) -> tuple[str, bytes]:
+    if shutil.which("qlmanage") is None:
+        raise RuntimeError("PNG table rendering requires macOS qlmanage, but it was not found.")
+
+    with tempfile.TemporaryDirectory(prefix="airfare_table_") as temp_dir:
+        base_name = sanitize_filename(title)
+        input_path = os.path.join(temp_dir, f"{base_name}.txt")
+        with open(input_path, "w", encoding="utf-8") as handle:
+            handle.write(f"{title}\n\n{table_text}\n")
+
+        try:
+            subprocess.run(
+                ["qlmanage", "-t", "-s", "1800", "-o", temp_dir, input_path],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+            )
+        except subprocess.CalledProcessError as exc:
+            detail = (exc.stderr or exc.stdout or "").strip()
+            raise RuntimeError(f"Failed to render PNG table via qlmanage: {detail}") from exc
+
+        output_path = f"{input_path}.png"
+        if not os.path.exists(output_path):
+            raise RuntimeError("qlmanage did not produce a PNG thumbnail file.")
+
+        png_bytes = Path(output_path).read_bytes()
+        return f"{base_name}.png", png_bytes
+
+
+def post_multipart_with_file(
+    url: str,
+    payload: dict[str, Any],
+    *,
+    filename: str,
+    file_bytes: bytes,
+    timeout: int = 30,
+    user_agent: str = DEFAULT_DISCORD_USER_AGENT,
+) -> dict[str, Any]:
+    boundary = f"----codex-{uuid.uuid4().hex}"
+
+    payload_json = json.dumps(payload, ensure_ascii=False)
+    body = bytearray()
+    body.extend(f"--{boundary}\r\n".encode("utf-8"))
+    body.extend(b'Content-Disposition: form-data; name="payload_json"\r\n')
+    body.extend(b"Content-Type: application/json\r\n\r\n")
+    body.extend(payload_json.encode("utf-8"))
+    body.extend(b"\r\n")
+
+    body.extend(f"--{boundary}\r\n".encode("utf-8"))
+    body.extend(
+        f'Content-Disposition: form-data; name="files[0]"; filename="{filename}"\r\n'.encode("utf-8")
+    )
+    body.extend(b"Content-Type: image/png\r\n\r\n")
+    body.extend(file_bytes)
+    body.extend(b"\r\n")
+    body.extend(f"--{boundary}--\r\n".encode("utf-8"))
+
+    request = Request(
+        url,
+        data=bytes(body),
+        headers={
+            "Content-Type": f"multipart/form-data; boundary={boundary}",
+            "Accept": "application/json",
+            "User-Agent": user_agent,
+        },
+        method="POST",
+    )
+    try:
+        with urlopen(request, timeout=timeout) as response:
+            raw = response.read().decode("utf-8")
+    except HTTPError as exc:
+        payload_text = exc.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"Discord webhook multipart error {exc.code}: {payload_text}") from exc
+    except URLError as exc:
+        raise RuntimeError(f"Discord webhook multipart network error: {exc}") from exc
+
+    if not raw:
+        return {}
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        return {"raw": raw}
+
+
+def build_route_table_image_items(
+    results: list[FlightSummary],
+    *,
+    limit: int,
+    rows_per_block: int = 20,
+) -> list[dict[str, str]]:
+    items: list[dict[str, str]] = []
+    for route_title, route_results in group_results_by_route(results, limit=limit).items():
+        block_count = (len(route_results) - 1) // rows_per_block + 1
+        for start in range(0, len(route_results), rows_per_block):
+            block_index = start // rows_per_block + 1
+            title = route_title if block_count == 1 else f"{route_title} ({block_index}/{block_count})"
+            table_text = build_route_table_block(
+                route_results,
+                start_index=start,
+                rows_per_block=rows_per_block,
+            )
+            footer = (
+                f"source={route_results[0].source or '-'} | "
+                f"첫 일정 발권일 {route_results[0].last_ticketing_date or '-'}"
+            )
+            items.append({"title": title, "table_text": table_text, "footer": footer})
+    return items
 
 
 def post_json(
@@ -833,13 +1281,14 @@ def send_discord_results(
     webhook_url: str,
     results: list[FlightSummary],
     *,
-    max_results: int,
+    max_results: int | None,
     username: str = "Airfare Bot",
     errors: list[str] | None = None,
     user_agent: str = DEFAULT_DISCORD_USER_AGENT,
+    table_format: str = "png",
 ) -> None:
-    embeds = build_discord_embeds(results, limit=max_results)
-    if not embeds:
+    effective_limit = len(results) if max_results is None else max_results
+    if not results[:effective_limit]:
         content = "조건에 맞는 항공권을 찾지 못했습니다."
         if errors:
             content += f" 실패한 검색 {len(errors)}건"
@@ -850,11 +1299,36 @@ def send_discord_results(
         )
         return
 
-    total_embed_count = len(embeds)
-    for batch_index, embed_batch in enumerate(chunked(embeds, DISCORD_EMBED_BATCH_SIZE), start=1):
-        summary = f"항공권 검색 결과 {min(max_results, len(results))}건 중 {len(embed_batch)}건"
-        if total_embed_count > DISCORD_EMBED_BATCH_SIZE:
-            summary += f" ({batch_index}/{(total_embed_count - 1) // DISCORD_EMBED_BATCH_SIZE + 1})"
+    if table_format == "png":
+        items = build_route_table_image_items(results, limit=effective_limit, rows_per_block=20)
+        total_items = len(items)
+        for index, item in enumerate(items, start=1):
+            filename, png_bytes = render_table_png_bytes(item["title"], item["table_text"])
+            content = f"{item['title']}\n{item['footer']}"
+            if total_items > 1:
+                content = f"{content}\n({index}/{total_items})"
+            if index == 1 and errors:
+                content = f"{content}\n실패한 검색 {len(errors)}건"
+
+            post_multipart_with_file(
+                webhook_url,
+                {
+                    "username": username,
+                    "content": truncate_discord_content(content),
+                    "allowed_mentions": {"parse": []},
+                },
+                filename=filename,
+                file_bytes=png_bytes,
+                user_agent=user_agent,
+            )
+        return
+
+    embeds = build_discord_embeds(results, limit=effective_limit)
+    embed_batches = split_embeds_for_discord(embeds)
+    for batch_index, embed_batch in enumerate(embed_batches, start=1):
+        summary = f"항공권 검색 결과 {min(effective_limit, len(results))}건 중 {len(embed_batch)}건"
+        if len(embed_batches) > 1:
+            summary += f" ({batch_index}/{len(embed_batches)})"
         if batch_index == 1 and errors:
             summary += f" | 실패한 검색 {len(errors)}건"
 
@@ -862,7 +1336,7 @@ def send_discord_results(
             webhook_url,
             {
                 "username": username,
-                "content": summary,
+                "content": truncate_discord_content(summary),
                 "embeds": embed_batch,
                 "allowed_mentions": {"parse": []},
             },
@@ -888,14 +1362,27 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--month",
-        required=True,
         help="검색 기준 출발 월. YYYY-MM 또는 MM 형식. 예: 2026-07, 7",
+    )
+    parser.add_argument(
+        "--start-date",
+        help="검색 시작 출발일. YYYY-MM-DD 또는 M/D(M-D). 예: 2026-06-20, 6/20",
+    )
+    parser.add_argument(
+        "--end-date",
+        help="검색 종료 출발일. YYYY-MM-DD 또는 M/D(M-D). 예: 2026-07-20, 7/20",
+    )
+    parser.add_argument(
+        "--departure",
+        nargs="+",
+        default=DEFAULT_DEPARTURES,
+        help="출발지 목록. 기본값은 인천",
     )
     parser.add_argument(
         "--origins",
         nargs="+",
-        default=DEFAULT_ORIGINS,
-        help="출발지 목록. 기본값은 서울, 청주",
+        default=None,
+        help=argparse.SUPPRESS,
     )
     parser.add_argument("--adults", type=int, default=1, help="성인 승객 수")
     parser.add_argument(
@@ -944,6 +1431,12 @@ def build_parser() -> argparse.ArgumentParser:
         default=float(os.getenv("AMADEUS_REQUEST_DELAY", DEFAULT_REQUEST_DELAY)),
         help="Amadeus rate limit 보호용 요청 간격(초). 기본값 0.12",
     )
+    parser.add_argument(
+        "--concurrency",
+        type=int,
+        default=int(os.getenv("AMADEUS_CONCURRENCY", "1")),
+        help="검색 동시 실행 수. 기본값 1(직렬)",
+    )
     parser.add_argument("--non-stop", action="store_true", help="직항만 검색")
     parser.add_argument("--quiet", action="store_true", help="진행 로그 숨기기")
     parser.add_argument("--output", help="전체 결과를 JSON으로 저장할 경로")
@@ -955,8 +1448,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--discord-results-limit",
         type=int,
-        default=10,
-        help="Discord로 보낼 상위 결과 수. 기본값 10",
+        help="Discord로 보낼 상위 결과 수. 기본값은 전체 결과",
     )
     parser.add_argument(
         "--discord-username",
@@ -967,6 +1459,12 @@ def build_parser() -> argparse.ArgumentParser:
         "--discord-user-agent",
         default=os.getenv("DISCORD_USER_AGENT", DEFAULT_DISCORD_USER_AGENT),
         help="Discord webhook 요청 시 사용할 User-Agent",
+    )
+    parser.add_argument(
+        "--discord-table-format",
+        default=os.getenv("DISCORD_TABLE_FORMAT", "png"),
+        choices=["png", "text"],
+        help="Discord 표 전송 형식. png(기본) 또는 text",
     )
     return parser
 
@@ -1011,7 +1509,7 @@ def main(argv: Iterable[str] | None = None) -> int:
         write_output(args.output, results, errors)
         print(f"\nJSON saved to {args.output}")
 
-    if args.discord_results_limit < 1:
+    if args.discord_results_limit is not None and args.discord_results_limit < 1:
         print("discord-results-limit는 1 이상이어야 합니다.", file=sys.stderr)
         return 1
 
@@ -1024,6 +1522,7 @@ def main(argv: Iterable[str] | None = None) -> int:
                 username=args.discord_username,
                 errors=errors,
                 user_agent=args.discord_user_agent,
+                table_format=args.discord_table_format,
             )
             print("Discord webhook sent.")
         except RuntimeError as exc:
